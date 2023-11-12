@@ -1,6 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import viteLogo from '/vite.svg'
 
-function App() {
+function Template() {
 
   return (
     <>
@@ -13,4 +15,4 @@ function App() {
   )
 }
 
-export default App
+export default Template
