@@ -1,0 +1,133 @@
+{
+  "productos": [
+    {
+      "nombre": "Zapatillas Deportivas",
+      "empresaAsociada": "Deportes Max",
+      "descripcionCorta": "Zapatillas ligeras para correr",
+      "descripcionLarga": "Zapatillas de alto rendimiento para correr, con soporte de arco y amortiguación. Ideales para entrenamientos y competiciones.",
+      "imagen": "url_de_imagen_zapatillas.jpg",
+      "precio": 79.99
+    },
+    {
+      "nombre": "Smartphone X200",
+      "empresaAsociada": "Tecnologías Avanzadas",
+      "descripcionCorta": "Smartphone de última generación",
+      "descripcionLarga": "Smartphone con pantalla de 6.5 pulgadas, cámara triple, 128GB de almacenamiento y procesador de alta velocidad.",
+      "imagen": "url_de_imagen_smartphone.jpg",
+      "precio": 499.00
+    },
+    {
+      "nombre": "Cafetera Eléctrica",
+      "empresaAsociada": "Hogar & Cocina",
+      "descripcionCorta": "Cafetera automática para espresso",
+      "descripcionLarga": "Cafetera eléctrica con sistema de cápsulas, prepara espressos, lattes y cappuccinos con solo tocar un botón.",
+      "imagen": "url_de_imagen_cafetera.jpg",
+      "precio": 120.00
+    },
+    {
+      "nombre": "Reloj Inteligente Sport",
+      "empresaAsociada": "Tecnología Wearable",
+      "descripcionCorta": "Reloj inteligente con funciones deportivas",
+      "descripcionLarga": "Este reloj inteligente incluye seguimiento de actividad, monitoreo de frecuencia cardíaca, GPS integrado y resistencia al agua. Ideal para entusiastas del fitness y deportistas.",
+      "imagen": "url_de_imagen_reloj.jpg",
+      "precio": 199.50
+    },
+    {
+      "nombre": "Bicicleta Montaña Pro",
+      "empresaAsociada": "Aventura Bikes",
+      "descripcionCorta": "Bicicleta de montaña resistente",
+      "descripcionLarga": "Bicicleta de montaña con marco de acero de alta resistencia, frenos de disco y cambios de 21 velocidades. Perfecta para terrenos difíciles y senderos de montaña.",
+      "imagen": "url_de_imagen_bicicleta.jpg",
+      "precio": 850.00
+    },
+    {
+      "nombre": "Cámara Digital Reflex",
+      "empresaAsociada": "FotoPro",
+      "descripcionCorta": "Cámara reflex para profesionales",
+      "descripcionLarga": "Cámara digital reflex con sensor de 24MP, lentes intercambiables, y grabación de video en 4K. Ideal para fotógrafos profesionales y aficionados serios.",
+      "imagen": "url_de_imagen_camara.jpg",
+      "precio": 1200.00
+    },
+    {
+      "nombre": "Set de Maquillaje Profesional",
+      "empresaAsociada": "Belleza Total",
+      "descripcionCorta": "Completo set de maquillaje",
+      "descripcionLarga": "Set de maquillaje que incluye sombras de ojos, labiales, rubores y más. Productos de alta calidad para un maquillaje profesional.",
+      "imagen": "url_de_imagen_maquillaje.jpg",
+      "precio": 99.99
+    },
+    {
+      "nombre": "Mochila de Viaje Espaciosa",
+      "empresaAsociada": "Mundo Viajero",
+      "descripcionCorta": "Mochila amplia para viajes",
+      "descripcionLarga": "Mochila de gran capacidad con múltiples compartimentos, resistente al agua y duradera. Ideal para viajeros y mochileros.",
+      "imagen": "url_de_imagen_mochila.jpg",
+      "precio": 70.00
+    },
+    {
+      "nombre": "Laptop Ultraligera Pro",
+      "empresaAsociada": "Tech Innovations",
+      "descripcionCorta": "Laptop ultraligera y potente",
+      "descripcionLarga": "Laptop con procesador de última generación, pantalla de alta resolución, ultraligera y con batería de larga duración. Perfecta para profesionales y estudiantes.",
+      "imagen": "url_de_imagen_laptop.jpg",
+      "precio": 1200.00
+    },
+    {
+      "nombre": "Consola de Videojuegos Next-Gen",
+      "empresaAsociada": "GamerZone",
+      "descripcionCorta": "Consola de videojuegos de última generación",
+      "descripcionLarga": "Consola con gráficos avanzados en 4K, catálogo extenso de juegos y experiencia de juego inmersiva. Ideal para gamers de todas las edades.",
+      "imagen": "url_de_imagen_consola.jpg",
+      "precio": 500.00
+    },
+    {
+      "nombre": "Silla de Oficina Ergonómica",
+      "empresaAsociada": "Comfort Desk",
+      "descripcionCorta": "Silla ergonómica para oficina",
+      "descripcionLarga": "Silla de oficina con diseño ergonómico, ajustable en altura y respaldo, y soporte lumbar. Ideal para largas horas de trabajo.",
+      "imagen": "url_de_imagen_silla.jpg",
+      "precio": 250.00
+    },
+    {
+      "nombre": "Set de Herramientas Completo",
+      "empresaAsociada": "Manos a la Obra",
+      "descripcionCorta": "Set completo de herramientas manuales",
+      "descripcionLarga": "Set de herramientas que incluye martillo, destornilladores, llaves, alicates y más. Todo lo necesario para reparaciones en casa o proyectos DIY.",
+      "imagen": "url_de_imagen_herramientas.jpg",
+      "precio": 150.00
+    },
+    {
+      "nombre": "Robot Aspirador Inteligente",
+      "empresaAsociada": "CleanHome Tech",
+      "descripcionCorta": "Aspirador robotizado inteligente",
+      "descripcionLarga": "Robot aspirador con sistema de navegación inteligente, controlable por app y capaz de limpiar todo tipo de superficies.",
+      "imagen": "url_de_imagen_robotaspirador.jpg",
+      "precio": 299.99
+    },
+    {
+      "nombre": "Juego de Cuchillos de Chef Profesional",
+      "empresaAsociada": "Cocina Gourmet",
+      "descripcionCorta": "Juego de cuchillos de alta calidad",
+      "descripcionLarga": "Set de cuchillos de chef profesional, incluye cuchillos para diferentes usos, todos fabricados con acero inoxidable de alta calidad.",
+      "imagen": "url_de_imagen_cuchillos.jpg",
+      "precio": 120.00
+    },
+    {
+      "nombre": "Kit de Jardinería Completo",
+      "empresaAsociada": "Jardín Feliz",
+      "descripcionCorta": "Kit completo para amantes de la jardinería",
+      "descripcionLarga": "Set que incluye herramientas de jardinería, guantes, regadera y otros accesorios esenciales para el cuidado del jardín.",
+      "imagen": "url_de_imagen_jardineria.jpg",
+      "precio": 80.00
+    },
+    {
+      "nombre": "Patinete Eléctrico Urbano",
+      "empresaAsociada": "Movilidad Eco",
+      "descripcionCorta": "Patinete eléctrico ligero y rápido",
+      "descripcionLarga": "Patinete eléctrico con batería de larga duración, diseño plegable y seguro, ideal para desplazamientos urbanos rápidos y ecológicos.",
+      "imagen": "url_de_imagen_patinete.jpg",
+      "precio": 350.00
+    }
+  ]
+}
+
