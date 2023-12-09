@@ -1,11 +1,25 @@
-
 import {createBrowserRouter} from "react-router-dom";
-import Template from "../screens/Template.tsx";
+import ItemsContent from "../screens/ItemsContent/index.tsx";
+import DashboardContent from "../screens/DashboardContent";
+import ProductDetail from "../screens/ProductDetail";
+import ShopCar from "../screens/ShopCar";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Template />,
+        element: <DashboardContent/>,
     },
+    {
+        path: "/products",
+        element: <ItemsContent/>,
+    },
+    {
+        path: "/shopcar",
+        element: <ShopCar/>,
+    },
+    {
+        path: "/product/:id",
+        element: <ProductDetail/>,
+    }
 ]);
 export default router;
