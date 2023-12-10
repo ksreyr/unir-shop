@@ -29,7 +29,7 @@ export const theme = () =>createTheme(baseTheme,{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'flex-end',
-                    px: [1],
+                    px: ['1'],
                 },
             },
         },

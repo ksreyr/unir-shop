@@ -1,23 +1,15 @@
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import InformationContent from "../../components/InformationContent";
 import Template from "../Template.tsx";
 import Title from "../../components/Title";
 import Typography from "@mui/material/Typography";
+import ComponentSkeleton from "../../components/ComponentSkeleton";
 
 
 export default function DashboardContent() {
     return (
         <Template>
-            <Grid item xs={12} md={4} lg={6} className="dashboard-grid__chart">
-                <Paper
-                    sx={{
-                        p: 2,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        height: 240,
-                    }}
-                >
+            <ComponentSkeleton paddingTop={4} paddingBottom={2} lg={6} gridTemplateColumns={'1fr'}>
+
                     <InformationContent>
                         <Title>
                             Desarrollo de un front-end utilizando React
@@ -28,23 +20,13 @@ export default function DashboardContent() {
                         <Typography color="text.primary" sx={{flex: 1}}>
                             Kevin Santiago Rey Rodriguez
                         </Typography>
-                        <Typography color="text.secondary">
+                        <Typography paddingTop={4} color="text.secondary">
                             Diciembre, 2023
                         </Typography>
                     </InformationContent>
-                </Paper>
-            </Grid>
+            </ComponentSkeleton>
 
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={6} className="dashboard-grid__chart">
-                <Paper
-                    sx={{
-                        p: 2,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        height: 240,
-                    }}
-                >
+            <ComponentSkeleton paddingTop={4} paddingBottom={2} lg={6} gridTemplateColumns={'1fr'}>
                     <InformationContent>
                         <Title>Descripcion del trabajo</Title>
                         <Typography>
@@ -55,12 +37,9 @@ export default function DashboardContent() {
                             Se valorará el uso de datos de prueba y el despliegue del front-end usando herramientas como Vercel.
                         </Typography>
                     </InformationContent>
-                </Paper>
-            </Grid>
+            </ComponentSkeleton>
 
-            {/* Recent InformationContent */}
-            <Grid item xs={12} className="dashboard-grid__chart">
-                <Paper sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
+            <ComponentSkeleton paddingTop={4} paddingBottom={2} lg={12} gridTemplateColumns={'1fr'}>
                     <InformationContent>
                         <Title>Características del Proyecto</Title>
 
@@ -95,8 +74,7 @@ export default function DashboardContent() {
                             Utiliza React Router para manejar las rutas dentro de la aplicación, facilitando la navegación entre diferentes páginas como la página de inicio, catálogo de productos, detalles de productos y el carrito de compras.
                         </Typography>
                     </InformationContent>
-                </Paper>
-            </Grid>
+            </ComponentSkeleton>
         </Template>
     );
 }

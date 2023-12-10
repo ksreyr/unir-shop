@@ -4,6 +4,8 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Card from "../../components/Card";
 import {useProductDetail} from "./hook.ts";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+
 
 
 export default function ProductDetail() {
@@ -17,7 +19,7 @@ export default function ProductDetail() {
                         gridTemplateColumns: {md: '1fr'},
                     }}
                 >
-                    <Card product={product} height={'500hv'} dispatcher={dispatch}/>
+                    <Card product={product} height={'500hv'} dispatcher={dispatch} children={<AddShoppingCartIcon/>}/>
                 </Paper>
             </Grid>
 

@@ -23,7 +23,6 @@ export const useProductDetail = () => {
     const {id} = useParams()
     const callbackFetChProduct = getOneProduct()
     const getProduct = async (productId: string) => fetchAndSetData(() => callbackFetChProduct(productId!), setProduct)
-
     const [product, setProduct] = useState<PRODUCT_TYPE>(initialState)
     const {changeState} = useContext(ShopCarContext)
     const dispatch = (dispatcher: Dispatcher) => dispatcher("ADD")(changeState)

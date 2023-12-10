@@ -8,7 +8,6 @@ import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {PRODUCT_TYPE} from "../../models/models.tsx";
 import {ACTION_TYPE} from "../../context/ShopCar/ShopCar.tsx";
 import {ExpandMore} from "./ExpandMore.tsx";
@@ -16,6 +15,7 @@ import {useCard} from "./hook.ts";
 import {CustomBox_Card_Image} from "../Styled/CustomBox/CustomBoxOne_Line.tsx";
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import {Box, CircularProgress} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 type CARD_TYPE = {
     product: PRODUCT_TYPE,
@@ -31,7 +31,7 @@ export default function Card({product, height, dispatcher, children}: PropsWithC
         expanded,
         isLoading,
         handleImageLoad} = useCard(product, dispatcher)
-
+    const navigate = useNavigate();
     return (
         <MUICard>
             <CardHeader
@@ -40,11 +40,6 @@ export default function Card({product, height, dispatcher, children}: PropsWithC
                         src={product.vendedor}
                         alt="Cat Avatar"
                     />
-                }
-                action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon/>
-                    </IconButton>
                 }
                 title={product.nombre}
                 subheader={"Categoria: " + product.categoria}
@@ -75,7 +70,7 @@ export default function Card({product, height, dispatcher, children}: PropsWithC
                     onClick={handleClick}>
                     {children}
                 </IconButton>
-                <IconButton aria-label="share">
+                <IconButton aria-label="share" onClick={()=> navigate(`/product/${product.id}`)}>
                     <QuestionMarkIcon/>
                 </IconButton>
                 <ExpandMore

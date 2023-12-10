@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import {withItem} from "../../utils/filter/FilterUtils.tsx";
 import {PRODUCT_TYPE} from "../../models/models.tsx";
 
@@ -7,7 +7,7 @@ export const useSearch = (filterHandler: (filterProcess: (products: PRODUCT_TYPE
     const [name, setName] = useState("");
     const [category, setCategory] = useState("")
 
-    const handleChange = (event: React.SyntheticEvent,
+    const handleChange = useMemo(()=>(event: React.SyntheticEvent,
                           value: string | null,
                           current: string) => {
         event.preventDefault();
@@ -28,7 +28,7 @@ export const useSearch = (filterHandler: (filterProcess: (products: PRODUCT_TYPE
                     }
                 })
         );
-    }
+    },[name, category])
 
     return{
         handleChange

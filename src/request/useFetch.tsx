@@ -1,4 +1,4 @@
-const url = "http://localhost:3000/"
+const url = "http://161.35.217.199:3000/"
 
 export const performFetch = (path: string) => {
     const petition = (method: string) => (body?: unknown) =>

@@ -6,19 +6,20 @@ import Badge from "@mui/material/Badge";
 import {useContext} from "react";
 import {ShopCarContext} from "../../context/ShopCar/ShopCar.tsx";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import {useNavigate} from 'react-router-dom';
 
 export default function Header({toggleDrawer, isOpen}: {
     toggleDrawer: () => void,
     isOpen: boolean
 }) {
-
     const {shopCar} = useContext(ShopCarContext)
+    const navigate = useNavigate();
 
     return (
         <Toolbar
             sx={{
-                pr: '24px',
-                padding: '0px',
+                pr: '0px',
+                padding: '0',
             }}
         >
             <IconButton
@@ -42,7 +43,8 @@ export default function Header({toggleDrawer, isOpen}: {
             >
                 Unir-shop
             </Typography>
-            <IconButton color="inherit">
+            <IconButton color="inherit" onClick={() => navigate('/shopcar')}>
+
                 <Badge badgeContent={shopCar.length} color="secondary">
                     <ShoppingCartIcon/>
                 </Badge>

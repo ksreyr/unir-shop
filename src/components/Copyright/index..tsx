@@ -8,7 +8,7 @@ export default function Copyright(props: COPYRIGHT_TYPE) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
+            <Link color="inherit" href="https://github.com/ksreyr/unir-shop">
                 shop-unir
             </Link>{' '}
             {new Date().getFullYear()}

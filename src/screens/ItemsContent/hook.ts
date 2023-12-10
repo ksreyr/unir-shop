@@ -6,7 +6,7 @@ import {ACTION_TYPE, ShopCarContext} from "../../context/ShopCar/ShopCar.tsx";
 
 type FILTER_TYPE = (products: PRODUCT_TYPE[]) => PRODUCT_TYPE[];
 
-type Dispatcher = (type: ("ADD" | "DELETE")) => (dispatch: Dispatch<ACTION_TYPE>) => void;
+type Dispatcher = (dis:(type: ("ADD" | "DELETE")) => (dispatch: Dispatch<ACTION_TYPE>) => void)=> void;
 
 export const useItemsContent = () => {
     const fetchProduct = fetchAllProducts()
@@ -18,12 +18,11 @@ export const useItemsContent = () => {
         fetchData()
     }, [])
 
-
-    const filterHandler = (filterProcess: FILTER_TYPE) => fetchProduct()
+    const filterHandler = (filterProcess:FILTER_TYPE) => fetchProduct()
         .then((res: PRODUCT_TYPE[]) => filterProcess(res))
         .then(res => setProducts(res))
 
-    const dispatcher = (dispatchAction: Dispatcher) =>
+    const dispatcher : Dispatcher = (dispatchAction) =>
         dispatchAction("ADD")(changeState)
 
     return {

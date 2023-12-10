@@ -15,6 +15,7 @@ const Drawer = styled(MuiDrawer,
                 position: 'relative',
                 whiteSpace: 'nowrap',
                 width: width,
+                padding: '0px',
                 transition: theme.transitions.create('width', {
                     easing: theme.transitions.easing.sharp,
                     duration: theme.transitions.duration.enteringScreen,

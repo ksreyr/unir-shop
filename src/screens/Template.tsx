@@ -24,7 +24,7 @@ function Template({children}: PropsWithChildren) {
 
     return (
         <CustomBox>
-            <AppBar position="absolute" open={isOpen}>
+            <AppBar position="absolute" open={isOpen} sx={{padding:0,borderRadius:'0px'}}>
                 <Header isOpen={isOpen} toggleDrawer={toggleDrawer} />
             </AppBar>
             <Drawer variant="permanent" open={isOpen}>
@@ -34,9 +34,9 @@ function Template({children}: PropsWithChildren) {
                     </IconButton>
                 </Toolbar>
                 <Divider/>
-                <List component="nav">
+                <List component="nav" >
                     {mainListItems}
-                    <Divider sx={{my: 1}}/>
+                    <Divider/>
                     {secondaryListItems}
                 </List>
             </Drawer>

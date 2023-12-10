@@ -21,7 +21,7 @@ const drawReducer = (state: STATE_TYPE, action: ACTION_TYPE) => {
     }
 }
 const INITIAL_STATE: STATE_TYPE = {
-    open: true
+    open: false
 }
 export const DrawProvider = ({children}: { children: React.ReactNode }) => {
     const [drawState, setDrawState] = useReducer(drawReducer, INITIAL_STATE)

@@ -8,9 +8,11 @@ export const useCard = (
     dispatcher: (dispatchAction: (type: "ADD" | "DELETE") => (dispatch: Dispatch<ACTION_TYPE>) => void) => void) => {
     const [expanded, setExpanded] = React.useState(false);
     const [isLoading, setIsLoading] = useState(true);
+
     const handleImageLoad = () => {
         setIsLoading(false);
     };
+
     const handleClick = (event: React.SyntheticEvent) => {
         event.preventDefault();
         dispatcher(

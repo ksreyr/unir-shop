@@ -54,7 +54,7 @@ export const secondaryListItems = (
             Repository
         </ListSubheader>
         <ListItemButton>
-            <ListItem component={Link} to={'/'} disablePadding={true} sx={{color: 'text.primary'}}>
+            <ListItem component={Link} to={'https://github.com/ksreyr/unir-shop'} disablePadding={true} sx={{color: 'text.primary'}}>
                 <ListItemIcon>
                     <GitHubIcon/>
                 </ListItemIcon>
