@@ -12,7 +12,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 export default function Contact(){
     return(<Template>
-        <ComponentSkeleton paddingTop={4} paddingBottom={2} lg={12} gridTemplateColumns={'1fr'}>
+        <ComponentSkeleton paddingTop={4} paddingBottom={2} lg={12} sm={12} md={12} xs={12} gridTemplateColumns={'1fr'}>
             <Title>
                 Contacto
             </Title>

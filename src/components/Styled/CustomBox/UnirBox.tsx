@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles';
 
-const CustomBoxOne_Line = styled('div')(() => ({
+export const CustomBoxOne_Template = styled('div')(() => ({
     width: '100%',
     gridColumn: '1 / -1',
 }));
@@ -18,5 +18,3 @@ export  const CustomBox_Card_Image = styled('img')(() => ({
     height: 60,
     objectFit: 'cover',
 }));
-
-export default CustomBoxOne_Line;

@@ -3,7 +3,7 @@ import {getOneProduct} from "../../request/productsRequest/getOneProduct.tsx";
 import fetchAndSetData from "../../request/errorHandler.tsx";
 import {Dispatch, useContext, useEffect, useState} from "react";
 import {PRODUCT_TYPE} from "../../models/models.tsx";
-import {ACTION_TYPE, ShopCarContext} from "../../context/ShopCar/ShopCar.tsx";
+import {ACTION_TYPE_SHOPCAR, ShopCarContext} from "../../context/ShopCar/ShopCar.tsx";
 
 
 const initialState: PRODUCT_TYPE = {
@@ -17,7 +17,7 @@ const initialState: PRODUCT_TYPE = {
     nombre: "",
     precio: 0
 };
-type Dispatcher = ((type: "ADD" | "DELETE") => (dispatch: Dispatch<ACTION_TYPE>) => void);
+type Dispatcher = ((type: "ADD" | "DELETE") => (dispatch: Dispatch<ACTION_TYPE_SHOPCAR>) => void);
 
 export const useProductDetail = () => {
     const {id} = useParams()

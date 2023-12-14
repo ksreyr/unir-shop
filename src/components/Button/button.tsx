@@ -1,5 +1,5 @@
-import MUIButton from '@mui/material/Button';
+import MUIButton, {ButtonProps} from '@mui/material/Button';
 
-export default function Button({text}: { text: string }) {
-    return <MUIButton variant="contained">{text}</MUIButton>;
+export default function Button({text, ...props}: { text: string } & ButtonProps) {
+    return <MUIButton variant="contained" {...props}>{text}</MUIButton>;
 }

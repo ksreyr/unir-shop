@@ -1,26 +1,24 @@
 import {PropsWithChildren} from "react";
-import Grid from "@mui/material/Grid";
+import Grid, {GridProps} from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 
 type TYPE_SCRIPT = {
     paddingTop: number,
     paddingBottom: number,
-    spacing?: number,
-    lg: number,
     gridTemplateColumns: string
-}
+} & GridProps
 
 export default function ComponentSkeleton({
                                      children,
                                      paddingTop,
                                      paddingBottom,
                                      spacing,
-                                     lg,
-                                     gridTemplateColumns
+                                     gridTemplateColumns,
+                                     ...props
                                  }: PropsWithChildren<TYPE_SCRIPT>) {
     return (
         <Grid item className="dashboard-grid"
-              lg={lg}
+              {...props}
               paddingBottom={paddingBottom}
               paddingTop={paddingTop}
               spacing={spacing}

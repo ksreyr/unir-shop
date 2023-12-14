@@ -9,10 +9,10 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {PRODUCT_TYPE} from "../../models/models.tsx";
-import {ACTION_TYPE} from "../../context/ShopCar/ShopCar.tsx";
+import {ACTION_TYPE_SHOPCAR} from "../../context/ShopCar/ShopCar.tsx";
 import {ExpandMore} from "./ExpandMore.tsx";
 import {useCard} from "./hook.ts";
-import {CustomBox_Card_Image} from "../Styled/CustomBox/CustomBoxOne_Line.tsx";
+import {CustomBox_Card_Image} from "../Styled/CustomBox/UnirBox.tsx";
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import {Box, CircularProgress} from "@mui/material";
 import {useNavigate} from "react-router-dom";
@@ -20,7 +20,7 @@ import {useNavigate} from "react-router-dom";
 type CARD_TYPE = {
     product: PRODUCT_TYPE,
     height?: string,
-    dispatcher: (dispatchAction: (type: "ADD" | "DELETE") => (dispatch: Dispatch<ACTION_TYPE>) => void) => void
+    dispatcher: (dispatchAction: (type: "ADD" | "DELETE") => (dispatch: Dispatch<ACTION_TYPE_SHOPCAR>) => void) => void
 }
 
 

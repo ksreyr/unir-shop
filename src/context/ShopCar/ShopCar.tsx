@@ -2,13 +2,13 @@ import {createContext, Dispatch, PropsWithChildren, useReducer} from "react";
 import {PRODUCT_TYPE} from "../../models/models.tsx";
 
 type SHOP_TYPE = { shopCar: PRODUCT_TYPE[] }
-type SHOP_DISPATCHER = { changeState: Dispatch<ACTION_TYPE> } & SHOP_TYPE
-export type ACTION_TYPE = { type: 'ADD' | 'DELETE', payload: PRODUCT_TYPE }
+type SHOP_DISPATCHER = { changeState: Dispatch<ACTION_TYPE_SHOPCAR> } & SHOP_TYPE
+export type ACTION_TYPE_SHOPCAR = { type: 'ADD' | 'DELETE', payload: PRODUCT_TYPE }
 
 
 export const ShopCarContext = createContext({} as SHOP_DISPATCHER)
 
-const shopReducer = (state: SHOP_TYPE, action: ACTION_TYPE) => {
+const shopReducer = (state: SHOP_TYPE, action: ACTION_TYPE_SHOPCAR) => {
     switch (action.type) {
         case "ADD":
             return (state.shopCar.includes(action.payload))? state: {...state, shopCar: [...state.shopCar, action.payload]}

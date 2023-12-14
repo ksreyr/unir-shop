@@ -4,6 +4,7 @@ import DashboardContent from "../screens/DashboardContent";
 import ProductDetail from "../screens/ProductDetail";
 import ShopCar from "../screens/ShopCar";
 import Contact from "../screens/Contact";
+import Orders from "../screens/Orders";
 
 const router = createBrowserRouter([
     {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
     {
         path: "/contact",
         element: <Contact/>,
+    },
+    {
+        path: "/orders",
+        element: <Orders/>,
     },
     {
         path: "/product/:id",

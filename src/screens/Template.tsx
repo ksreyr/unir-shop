@@ -12,7 +12,7 @@ import Copyright from "../components/Copyright/index..tsx";
 import Grid from "@mui/material/Grid/Grid";
 import Header from "../components/Header/index.tsx";
 import {DrawContext} from "../context/Drawer/DrawerContext.tsx";
-import {CustomBox, CustomBox_Main} from "../components/Styled/CustomBox/CustomBoxOne_Line.tsx";
+import {CustomBox, CustomBox_Main} from "../components/Styled/CustomBox/UnirBox.tsx";
 
 function Template({children}: PropsWithChildren) {
 

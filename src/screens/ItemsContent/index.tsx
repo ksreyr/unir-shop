@@ -13,12 +13,12 @@ export default function ItemsContent() {
 
     return (
         <Template>
-            <ComponentSkeleton paddingTop={4} paddingBottom={2} lg={12} gridTemplateColumns={'1fr'}>
+            <ComponentSkeleton paddingTop={4} paddingBottom={2}  lg={12} sm={12} md={12} xs={12} gridTemplateColumns={'1fr'}>
                 <Title>Filter Product</Title>
                 <Search products={products} filterHandler={filterHandler}/>
             </ComponentSkeleton>
 
-            <ComponentSkeleton paddingTop={4} paddingBottom={2} lg={12} gridTemplateColumns={'1fr 1fr 1fr'}>
+            <ComponentSkeleton paddingTop={4} paddingBottom={2}  lg={12} sm={12} md={12} xs={12} gridTemplateColumns={'1fr 1fr 1fr'}>
                 <Title>Products</Title>
                 <WrapperProvider value={products.length != 0}>
                     <LoadingContext>

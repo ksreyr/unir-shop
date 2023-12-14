@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import CustomBoxOne_Line from "../Styled/CustomBox/CustomBoxOne_Line.tsx";
+import {CustomBoxOne_Template} from "../Styled/CustomBox/UnirBox.tsx";
 
 interface TitleProps {
     children?: React.ReactNode;
@@ -8,10 +8,10 @@ interface TitleProps {
 
 export default function Title(props: TitleProps) {
     return (
-        <CustomBoxOne_Line>
+        <CustomBoxOne_Template>
             <Typography component="h2" variant="h6" color="primary" gutterBottom>
                 {props.children}
             </Typography>
-        </CustomBoxOne_Line>
+        </CustomBoxOne_Template>
     );
 }

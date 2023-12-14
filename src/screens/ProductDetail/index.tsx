@@ -12,7 +12,7 @@ export default function ProductDetail() {
     const {product, dispatch} = useProductDetail()
     return (
         <Template>
-            <Grid item xs={12} md={12} lg={12} spacing={3}>
+            <Grid item  lg={12} sm={12} md={12} xs={12}  spacing={3}>
                 <Title>Details</Title>
                 <Paper
                     sx={{

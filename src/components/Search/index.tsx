@@ -15,7 +15,7 @@ export default function Search({products, filterHandler}:
 
     return (
         <Grid container spacing={1} direction={"row"}>
-            <Grid item lg={6}>
+            <Grid item lg={6}  sm={6} md={6} xs={6}>
                 <Autocomplete
                     disablePortal
                     id="category"
@@ -26,7 +26,7 @@ export default function Search({products, filterHandler}:
                     renderInput={(params) => <TextField {...params} label="Categorias"/>}
                 />
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6}  sm={6} md={6} xs={6}>
                 <Autocomplete
                     disablePortal
                     id="name-containar"

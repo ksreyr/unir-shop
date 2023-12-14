@@ -10,6 +10,7 @@ import {ListItem} from "@mui/material";
 import {Link} from 'react-router-dom';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import AllInboxIcon from '@mui/icons-material/AllInbox';
 
 export const mainListItems = (
     <>
@@ -35,6 +36,14 @@ export const mainListItems = (
                     <ShoppingCartIcon/>
                 </ListItemIcon>
                 <ListItemText primary="Shop-Car"/>
+            </ListItem>
+        </ListItemButton>
+        <ListItemButton>
+            <ListItem component={Link} to={'/orders'} disablePadding={true} sx={{color: 'text.primary'}}>
+                <ListItemIcon>
+                    <AllInboxIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Orders"/>
             </ListItem>
         </ListItemButton>
         <ListItemButton>

@@ -8,8 +8,7 @@ import ComponentSkeleton from "../../components/ComponentSkeleton";
 export default function DashboardContent() {
     return (
         <Template>
-            <ComponentSkeleton paddingTop={4} paddingBottom={2} lg={6} gridTemplateColumns={'1fr'}>
-
+            <ComponentSkeleton paddingTop={4} paddingBottom={2} lg={6} sm={12} md={12} xs={12}  gridTemplateColumns={'1fr'}>
                     <InformationContent>
                         <Title>
                             Desarrollo de un front-end utilizando React
@@ -26,7 +25,7 @@ export default function DashboardContent() {
                     </InformationContent>
             </ComponentSkeleton>
 
-            <ComponentSkeleton paddingTop={4} paddingBottom={2} lg={6} gridTemplateColumns={'1fr'}>
+            <ComponentSkeleton paddingTop={4} paddingBottom={2}  lg={6} sm={12} md={12} xs={12}  gridTemplateColumns={'1fr'}>
                     <InformationContent>
                         <Title>Descripcion del trabajo</Title>
                         <Typography>
@@ -42,7 +41,6 @@ export default function DashboardContent() {
             <ComponentSkeleton paddingTop={4} paddingBottom={2} lg={12} gridTemplateColumns={'1fr'}>
                     <InformationContent>
                         <Title>Características del Proyecto</Title>
-
                         <Typography variant={"overline"}>
                             Componentes React
                         </Typography>
