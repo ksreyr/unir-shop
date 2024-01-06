@@ -7,7 +7,6 @@ import java.time.Instant;
 
 
 @Embeddable
-@NoArgsConstructor(force = true)
 public record DateInfo(Instant creationDate) {
 
 }
