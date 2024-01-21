@@ -1,0 +1,41 @@
+### Libros Filtrados
+GET http://localhost:8082/api/v1/books/filterBy?author=Gabriel&name=Cien
+Content-Type: application/json
+
+### Todos los libros
+GET http://localhost:8082/api/v1/books/all
+Content-Type: application/json
+
+###All Request
+GET http://localhost:8081/api/v1/requests/all
+Content-Type: application/json
+
+###HealthCheck Request
+GET http://localhost:8081/api/v1/request
+Content-Type: application/json
+
+### Crear Peitcion de Libros
+POST http://localhost:8081/api/v1/request/create
+Content-Type: application/json
+
+{
+"requestList": ["db5ad86e-eb89-4f3f-b8f6-08568209d2f9", "3ce6c3e2-ca85-4cbc-9138-97dd0c77c70b"]
+}
+
+### Verificar -> ShopCar
+POST http://localhost:8082/api/v1/books/verify
+Content-Type: application/json
+
+{
+"booksID": ["f5306970-95ab-46bc-9e15-f0adc54ecdcf", "d0da8b55-1058-4269-9c44-000467da3249"]
+}
+
+### Compra
+POST http://localhost:8082/api/v1/books/request
+Content-Type: application/json
+
+{
+  "booksID": ["f5306970-95ab-46bc-9e15-f0adc54ecdcf", "d0da8b55-1058-4269-9c44-000467da3249"]
+}
+
+###Request of BookById
