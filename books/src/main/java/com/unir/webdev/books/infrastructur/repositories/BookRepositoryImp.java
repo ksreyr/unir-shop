@@ -11,7 +11,6 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -33,12 +32,42 @@ public class BookRepositoryImp implements BookRepository {
     public List<Book> getAllProductsBy(String name, String author) {
         return bookRepositoryJPA.findAll(bookSpec.filterColumns(name, author))
                                 .stream()
-                                .map(BookMapper ::fromDbToDomain)
+                                .map(BookMapper :: fromDbToDomain)
                                 .toList();
     }
 
     @Override
     public Boolean areValidateIDs(List<UUID> booksID) {
-        return booksID.stream().anyMatch(bookRepositoryJPA :: existsById);
+        return booksID.stream()
+                      .allMatch(bookRepositoryJPA :: existsById);
+    }
+
+    @Override
+    public void changeUnavailabilityOf(List<UUID> books) {
+        books.stream()
+             .map(bookRepositoryJPA :: findById)
+             .map(bookEntity -> bookEntity.get()
+                                          .makeUnavailable())
+             .forEach(bookRepositoryJPA :: save);
+    }
+
+    @Override
+    public void changeAvailabilityOf(List<UUID> books) {
+        books.stream()
+             .map(bookRepositoryJPA :: findById)
+             .map(bookEntity -> bookEntity.get()
+                                          .makeAvailable())
+             .forEach(bookRepositoryJPA :: save);
+    }
+
+
+    @Override
+    public boolean areAvailable(List<UUID> booksIDs) {
+        return booksIDs.stream()
+                       .map(bookRepositoryJPA :: findById)
+                       .allMatch(bookEntity -> bookEntity.get()
+                                                         .available()
+                                                         .available());
+
     }
 }

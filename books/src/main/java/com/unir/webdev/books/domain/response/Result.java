@@ -1,4 +1,4 @@
-package com.unir.webdev.books.domain.DTO;
+package com.unir.webdev.books.domain.response;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;

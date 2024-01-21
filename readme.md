@@ -27,16 +27,22 @@ Se proporcionan dos archivos de configuración YAML para los microservicios de `
 - Registro en Eureka Service Discovery.
 
 ## Hitos Clave
+
 ### Funcionalidades del Servicio de Libros (Puerto 8082)
-- **Libros Filtrados**: Filtrar libros por autor y nombre.
-- **Todos los Libros**: Listar todos los libros disponibles.
-- **Verificar Carrito de Compras**: Verificar los libros en el carrito de compras.
-- **Compra**: Realizar una solicitud de compra de libros.
+- **Libros Filtrados**: Filtrar libros por autor y nombre. (`GET /api/v1/books/filterBy`)
+- **Todos los Libros**: Listar todos los libros disponibles. (`GET /api/v1/books/all`)
+- **Verificar Carrito de Compras**: Verificar los libros en el carrito de compras. (`POST /api/v1/books/verify`)
+- **Compra**: Realizar una solicitud de compra de libros. (`POST /api/v1/books/request`)
+- **Cambiar Disponibilidad de Libros**: Cambiar la disponibilidad de los libros. (`POST /api/v1/books/changeAvailability`)
+- Documentación API: Disponible a través de OpenAPI en `http://127.0.0.1:8082/v3/api-docs`.
 
 ### Funcionalidades del Servicio de Solicitudes (Puerto 8081)
 - **Todas las Solicitudes**: Listar todas las solicitudes.
 - **HealthCheck de Solicitudes**: Verificar el estado del servicio de solicitudes.
 - **Crear Petición de Libros**: Enviar una nueva petición de libros.
+- **Eliminar Solicitud de Libros**: Eliminar una solicitud de libros existente. (`DELETE /api/v1/requests?requestUUID={uuid}`)
+- Documentación API: Disponible a través de OpenAPI en `http://127.0.0.1:8081/v3/api-docs`.
+
 
 ## Documentación API con Swagger
 La documentación de la API para ambos servicios está disponible a través de Swagger UI:

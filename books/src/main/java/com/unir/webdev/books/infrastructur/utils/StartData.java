@@ -3,6 +3,7 @@ package com.unir.webdev.books.infrastructur.utils;
 import com.unir.webdev.books.infrastructur.persistence.BookRepositoryJPA;
 import com.unir.webdev.books.infrastructur.persistence.entity.BookEntity;
 import com.unir.webdev.books.infrastructur.persistence.entity.valueObjects.Author;
+import com.unir.webdev.books.infrastructur.persistence.entity.valueObjects.Available;
 import com.unir.webdev.books.infrastructur.persistence.entity.valueObjects.BookName;
 import com.unir.webdev.books.infrastructur.persistence.entity.valueObjects.Image;
 import com.unir.webdev.books.infrastructur.persistence.entity.valueObjects.Isbn;
@@ -25,7 +26,6 @@ import java.util.UUID;
 @Service
 public class StartData {
     BookRepositoryJPA bookRepositoryJPA;
-    RestTemplate restTemplate;
 
     @EventListener (ApplicationReadyEvent.class)
     public void persistDataAfterStart() {
@@ -39,7 +39,8 @@ public class StartData {
                                 new Author("Gabriel García Márquez"),
                                 new ReleaseYear(1967),
                                 new Rate(4.7),
-                                new Language("Español")
+                                new Language("Español"),
+                                new Available(true)
                         ),
                         new BookEntity(
                                 UUID.randomUUID(),
@@ -49,7 +50,8 @@ public class StartData {
                                 new Author("George Orwell"),
                                 new ReleaseYear(1949),
                                 new Rate(4.6),
-                                new Language("Inglés")
+                                new Language("Inglés"),
+                                new Available(true)
                         ),
                         new BookEntity(
                                 UUID.randomUUID(),
@@ -59,7 +61,8 @@ public class StartData {
                                 new Author("Antoine de Saint-Exupéry"),
                                 new ReleaseYear(1943),
                                 new Rate(4.7),
-                                new Language("Francés")
+                                new Language("Francés"),
+                                new Available(true)
                         ),
                         new BookEntity(
                                 UUID.randomUUID(),
@@ -69,7 +72,8 @@ public class StartData {
                                 new Author("Harper Lee"),
                                 new ReleaseYear(1960),
                                 new Rate(4.8),
-                                new Language("Inglés")
+                                new Language("Inglés"),
+                                new Available(true)
                         ),
                         new BookEntity(
                                 UUID.randomUUID(),
@@ -79,7 +83,8 @@ public class StartData {
                                 new Author("J.R.R. Tolkien"),
                                 new ReleaseYear(1954),
                                 new Rate(4.9),
-                                new Language("Inglés")
+                                new Language("Inglés"),
+                                new Available(true)
                         ),
                         new BookEntity(
                                 UUID.randomUUID(),
@@ -89,14 +94,10 @@ public class StartData {
                                 new Author("Jane Austen"),
                                 new ReleaseYear(1813),
                                 new Rate(4.6),
-                                new Language("Inglés")
+                                new Language("Inglés"),
+                                new Available(true)
                         )
                        )
         );
-        /*
-        String serviceUrl = "http://orders:8081/api/v1/order";
-        String forObject = restTemplate.getForObject(serviceUrl, String.class);
-        System.out.println(forObject);
-        */
     }
 }

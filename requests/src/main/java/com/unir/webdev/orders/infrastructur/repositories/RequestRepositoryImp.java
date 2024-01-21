@@ -10,12 +10,12 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 @Repository
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+@FieldDefaults (makeFinal = true, level = AccessLevel.PRIVATE)
 public class RequestRepositoryImp implements RequestRepository {
 
     RequestRepositoryJPA requestRepositoryJPA;
@@ -23,22 +23,34 @@ public class RequestRepositoryImp implements RequestRepository {
 
     @Override
     public void registerNewOrder(Request request) {
-        requestRepositoryJPA
-                .save(requestMapper.adaptDomainToDb(request));
+        requestRepositoryJPA.save(requestMapper.adaptDomainToDb(request));
     }
 
     @Override
     public List<Request> getAllOrders() {
         return requestRepositoryJPA.findAll()
-                .stream()
-                .map(requestMapper ::adaptDbToDomain)
-                .toList();
+                                   .stream()
+                                   .map(requestMapper :: adaptDbToDomain)
+                                   .toList();
     }
 
     @Override
-    public void deleteOrder(Request request) {
-        requestRepositoryJPA
-                .delete(requestMapper.adaptDomainToDb(request));
+    public void deleteOrder(UUID request) {
+        requestRepositoryJPA.deleteById(request);
+    }
+
+    @Override
+    public Optional<Request> getRequestById(UUID id) {
+        return requestRepositoryJPA.findById(id)
+                                   .map(requestMapper :: adaptDbToDomain);
+    }
+
+    @Override
+    public List<UUID> getBookIDsByRequestId(UUID id) {
+        return requestRepositoryJPA.findById(id)
+                                   .map(requestMapper :: adaptDbToDomain)
+                                   .map(Request :: getBooksID)
+                                   .get();
     }
 
 }

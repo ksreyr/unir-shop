@@ -6,36 +6,49 @@ Content-Type: application/json
 GET http://localhost:8082/api/v1/books/all
 Content-Type: application/json
 
-###All Request
-GET http://localhost:8081/api/v1/requests/all
-Content-Type: application/json
-
 ###HealthCheck Request
 GET http://localhost:8081/api/v1/request
 Content-Type: application/json
 
 ### Crear Peitcion de Libros
-POST http://localhost:8081/api/v1/request/create
+POST http://localhost:8081/api/v1/requests/create
 Content-Type: application/json
 
 {
-"requestList": ["db5ad86e-eb89-4f3f-b8f6-08568209d2f9", "3ce6c3e2-ca85-4cbc-9138-97dd0c77c70b"]
+  "booksID": ["e568e3f5-6d12-4b6e-a9ca-931872ad4d53"]
 }
 
-### Verificar -> ShopCar
+### Verificar: ShopCar
 POST http://localhost:8082/api/v1/books/verify
 Content-Type: application/json
 
 {
-"booksID": ["f5306970-95ab-46bc-9e15-f0adc54ecdcf", "d0da8b55-1058-4269-9c44-000467da3249"]
+  "booksID": ["ce8e6c38-f0c0-4905-8588-4f77a01f6be2"]
 }
 
-### Compra
+
+
+
+### Compra:Books
 POST http://localhost:8082/api/v1/books/request
 Content-Type: application/json
 
 {
-  "booksID": ["f5306970-95ab-46bc-9e15-f0adc54ecdcf", "d0da8b55-1058-4269-9c44-000467da3249"]
+  "booksID": ["d85f165d-a855-4261-b87b-16f556beefe8", "97280a36-0311-43a3-abf5-96ab04fda5cd"]
 }
 
-###Request of BookById
+###All:Request
+GET http://localhost:8081/api/v1/requests/all
+Content-Type: application/json
+
+### Delete:Request
+DELETE http://localhost:8081/api/v1/requests?requestUUID=46454460-cae2-48e8-9a75-5e92488ab2c5
+Content-Type: application/json
+
+###ChangeAvailability:Book
+POST http://localhost:8082/api/v1/books/changeAvailability
+Content-Type: application/json
+
+{
+  "booksID": ["d85f165d-a855-4261-b87b-16f556beefe8", "97280a36-0311-43a3-abf5-96ab04fda5cd"]
+}

@@ -2,6 +2,7 @@ package com.unir.webdev.books.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.unir.webdev.books.domain.valueObjects.Author;
+import com.unir.webdev.books.domain.valueObjects.Available;
 import com.unir.webdev.books.domain.valueObjects.BookName;
 import com.unir.webdev.books.domain.valueObjects.Image;
 import com.unir.webdev.books.domain.valueObjects.Isbn;
@@ -41,4 +42,10 @@ public class Book {
     Rate rate;
     @JsonProperty
     Language language;
+    @JsonProperty
+    Available available;
+    public Book makeUnavailable() {
+        this.available = new Available(false);
+        return this;
+    }
 }

@@ -1,6 +1,6 @@
 package com.unir.webdev.books.application;
 
-import com.unir.webdev.books.domain.DTO.Result;
+import com.unir.webdev.books.domain.response.Result;
 import com.unir.webdev.books.domain.events.BookEvents;
 import com.unir.webdev.books.domain.repository.BookRepository;
 import lombok.AccessLevel;
@@ -18,10 +18,11 @@ public class RequestBookUseCase {
     BookEvents bookEvents;
     BookRepository bookRepository;
     public Result<String, Object> requestBooks(List<UUID> books){
-        if( !bookRepository.areValidateIDs(books)) {
-            return  Result.error("Unknown Data");
+        if( !bookRepository.areValidateIDs(books) || !bookRepository.areAvailable(books)) {
+            return  Result.error("Action Not Possible");
         }
         bookEvents.requestBooksCreation(books);
-        return Result.success("Data Persisted");
+        bookRepository.changeUnavailabilityOf(books);
+        return Result.success("Request done");
     }
 }

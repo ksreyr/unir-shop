@@ -20,7 +20,7 @@ public class CreateRequestController {
 
     @PostMapping ("/create")
     public ResponseEntity<?> handel(@RequestBody RequestCreation requestCreation) {
-        registerNewRequestUseCase.createNewOder(requestCreation.booksIDList());
+        registerNewRequestUseCase.createNewOder(requestCreation.booksID());
         return ResponseEntity.ok("");
     }
 
