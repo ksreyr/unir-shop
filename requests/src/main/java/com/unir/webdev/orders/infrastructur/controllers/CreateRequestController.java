@@ -1,6 +1,7 @@
 package com.unir.webdev.orders.infrastructur.controllers;
 
 import com.unir.webdev.orders.application.RegisterNewRequestUseCase;
+import com.unir.webdev.orders.domain.response.Result;
 import com.unir.webdev.orders.infrastructur.controllers.dto.RequestCreation;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping ("/api/v1/requests")
 @RequiredArgsConstructor
@@ -20,8 +23,16 @@ public class CreateRequestController {
 
     @PostMapping ("/create")
     public ResponseEntity<?> handel(@RequestBody RequestCreation requestCreation) {
-        registerNewRequestUseCase.createNewOder(requestCreation.booksID());
-        return ResponseEntity.ok("");
+        return Optional.ofNullable(requestCreation)
+                                         .map(RequestCreation :: booksID)
+                                         .filter(booksID -> ! booksID.isEmpty())
+                                         .map(registerNewRequestUseCase :: createNewOder)
+                                         .map(stringObjectResult -> {
+                                             if(stringObjectResult.isSuccess()){
+                                                 return ResponseEntity.ok(stringObjectResult.getSuccess());
+                                             }
+                                             return ResponseEntity.badRequest().body(stringObjectResult.getError());
+                                         }).orElseGet(() -> ResponseEntity.badRequest().body("Bad Request given"));
     }
 
 }

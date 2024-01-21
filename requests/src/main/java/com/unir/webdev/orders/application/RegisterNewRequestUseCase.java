@@ -2,6 +2,7 @@ package com.unir.webdev.orders.application;
 
 import com.unir.webdev.orders.domain.Request;
 import com.unir.webdev.orders.domain.repository.RequestRepository;
+import com.unir.webdev.orders.domain.response.Result;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -17,8 +18,9 @@ public class RegisterNewRequestUseCase {
 
     RequestRepository requestRepository;
 
-    public void createNewOder(List<UUID> request) {
+    public Result<String, Object> createNewOder(List<UUID> request) {
         requestRepository.registerNewOrder(Request.of(request));
+        return Result.success("registerNewOrder");
     }
 
 
