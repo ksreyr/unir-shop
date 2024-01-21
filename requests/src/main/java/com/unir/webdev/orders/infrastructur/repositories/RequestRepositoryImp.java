@@ -6,6 +6,7 @@ import com.unir.webdev.orders.infrastructur.persistence.RequestRepositoryJPA;
 import com.unir.webdev.orders.infrastructur.persistence.mapper.RequestMapper;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Repository;
 
@@ -46,11 +47,21 @@ public class RequestRepositoryImp implements RequestRepository {
     }
 
     @Override
+    public boolean existRequest(UUID id) {
+        return getRequestById(id).isEmpty();
+    }
+
+    @Override
     public List<UUID> getBookIDsByRequestId(UUID id) {
         return requestRepositoryJPA.findById(id)
                                    .map(requestMapper :: adaptDbToDomain)
                                    .map(Request :: getBooksID)
                                    .get();
+    }
+
+    @Override
+    public boolean isRequestEmpti(UUID id) {
+        return getBookIDsByRequestId(id).isEmpty();
     }
 
 }

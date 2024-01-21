@@ -13,5 +13,7 @@ public interface RequestRepository {
     List<Request> getAllOrders();
     void deleteOrder(UUID uuid);
     Optional<Request> getRequestById(UUID id);
+    boolean existRequest(UUID id);
     List<UUID> getBookIDsByRequestId(UUID id);
+    boolean isRequestEmpti(UUID id);
 }

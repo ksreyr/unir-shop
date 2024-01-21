@@ -21,13 +21,10 @@ public class DeleteRequestsUseCase {
     RequestRepository requestRepository;
     ChangeAvailabilityEvent changeAvailabilityEvent;
     public Result<String, String> deleteRequest(UUID requestID){
-        if(requestRepository.getRequestById(requestID).isEmpty()){
+        if(requestRepository.existRequest(requestID) || requestRepository.isRequestEmpti(requestID)){
             return Result.error("Not Validdata");
         }
         var booksID = requestRepository.getBookIDsByRequestId(requestID);
-        if(booksID.isEmpty()){
-            return Result.error("Not Validdata");
-        }
         requestRepository.deleteOrder(requestID);
         changeAvailabilityEvent.sendEventChangeAvailability(booksID);
         return Result.success("Deleted Request");

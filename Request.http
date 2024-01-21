@@ -42,7 +42,7 @@ GET http://localhost:8081/api/v1/requests/all
 Content-Type: application/json
 
 ### Delete:Request
-DELETE http://localhost:8081/api/v1/requests?requestUUID=46454460-cae2-48e8-9a75-5e92488ab2c5
+DELETE http://localhost:8081/api/v1/requests?requestUUID=a303fefb-9821-49dd-89e8-b23f433a023b
 Content-Type: application/json
 
 ###ChangeAvailability:Book
