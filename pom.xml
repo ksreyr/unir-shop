@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>com.unir.webdev</groupId>
-    <artifactId>shop-unir</artifactId>
+    <artifactId>bookshop-unir</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>shop-unir</name>
     <packaging>pom</packaging>
