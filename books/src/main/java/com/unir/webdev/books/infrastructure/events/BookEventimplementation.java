@@ -21,11 +21,12 @@ public class BookEventimplementation implements BookEvents {
     RestTemplate restTemplate;
 
     @Override
-    public void requestBooksCreation(List<UUID> booksID) {
+    public boolean requestBooksCreation(List<UUID> booksID) {
         String url = "http://requests:8081/api/v1/requests/create";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         var requestEntity = new HttpEntity<>(new RequestCreation(booksID), headers);
         restTemplate.postForObject(url, requestEntity, String.class);
+        return true;
     }
 }
