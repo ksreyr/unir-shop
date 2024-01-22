@@ -23,7 +23,7 @@ POST http://localhost:8082/api/v1/books/verify
 Content-Type: application/json
 
 {
-  "booksID": ["d71419eb-0336-48a1-81d3-e03cd6cc4213"]
+  "booksID": ["e3db8507-8cf5-48bd-bf67-1f007cb291d5"]
 }
 
 
@@ -34,7 +34,7 @@ POST http://localhost:8082/api/v1/books/request
 Content-Type: application/json
 
 {
-  "booksID": ["ce76839f-f635-42e6-9b29-5d82a0fe9810"]
+  "booksID": ["e3db8507-8cf5-48bd-bf67-1f007cb291d5"]
 }
 
 ###All:Request
@@ -42,7 +42,7 @@ GET http://localhost:8081/api/v1/requests/all
 Content-Type: application/json
 
 ### Delete:Request
-DELETE http://localhost:8081/api/v1/requests?requestUUID=ded4eb61-afb2-41f6-82a3-4fad69834058
+DELETE http://localhost:8081/api/v1/requests?requestUUID=509d6448-13ef-4aed-b2d9-80cfe38f1033
 Content-Type: application/json
 
 ###ChangeAvailability:Book

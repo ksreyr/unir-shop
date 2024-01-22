@@ -5,10 +5,10 @@ import com.unir.webdev.books.domain.response.Result;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -18,11 +18,14 @@ public class ChangeAvailabilityUseCase {
     BookRepository bookRepository;
 
     public Result<String, Object> changeAvailability(List<UUID> booksID) {
-        return Optional.ofNullable(booksID)
-                .filter(bookRepository :: areValidBooks)
-                .map(uuids -> {
-                    bookRepository.changeAvailabilityOf(uuids);
-                    return Result.success("saved");
-                }).orElse(Result.error("Not Valid Data"));
+        return booksID.stream()
+                      .filter(bookRepository :: isValidBook)
+                      .map(this :: changeAvailabilityOf)
+                      .allMatch(Result :: isSuccess) ? Result.success("all changed") :
+               Result.error("all changed");
+    }
+
+    private @NotNull Result<String, Object> changeAvailabilityOf(UUID uuids) {
+        bookRepository.changeAvailabilityOf(uuids); return Result.success("change");
     }
 }

@@ -2,9 +2,11 @@ package com.unir.webdev.books.application;
 
 import com.unir.webdev.books.domain.Book;
 import com.unir.webdev.books.domain.repository.BookRepository;
+import com.unir.webdev.books.domain.response.Result;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class GetAllBooksUseCase {
     BookRepository bookRepository;
-    public List<Book> getAllProducts(){
-        return bookRepository.getAllProducts();
+    public @NotNull Result<List<Book>, Object> getAllProducts(){
+        return Result.success(bookRepository.getAllProducts());
     }
 }

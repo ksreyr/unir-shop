@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -19,12 +20,15 @@ import java.util.UUID;
 public class RequestBookUseCase {
     BookEvents bookEvents;
     BookRepository bookRepository;
+
     public Result<String, Object> requestBooks(List<UUID> books) {
-        return Optional.ofNullable(books)
-                       .filter(bookRepository :: areValidBooks)
-                       .filter(bookRepository :: areAvailable)
-                       .map(this :: sendEvents)
-                       .orElse(Result.error("Action Not Possible"));
+        return Optional.of(books.stream()
+                         .filter(bookRepository::isValidBook)
+                         .filter(bookRepository::areAvailable)
+                         .collect(Collectors.toList()))
+                .filter(list -> !list.isEmpty())
+                .map(this::sendEvents)
+                .orElse(Result.error("Bad Request"));
     }
 
     @NotNull

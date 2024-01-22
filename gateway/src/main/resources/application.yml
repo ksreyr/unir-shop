@@ -17,12 +17,12 @@ spring:
           lower-case-service-id: true
       routes:
         - id: PRODUCT-SERVICE
-          uri: lb://PRODUCTS
+          uri: lb://BOOKS
           predicates:
-            - Path=/api/v1/product/**
+            - Path=/api/v1/books/**
         - id: ORDER-SERVICE
-          uri: lb://ORDERS
+          uri: lb://REQUESTS
           predicates:
-            - Path=/api/v1/order/**
+            - Path=/api/v1/requests/**
 
 

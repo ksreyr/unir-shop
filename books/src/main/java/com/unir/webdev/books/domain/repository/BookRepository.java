@@ -11,8 +11,8 @@ public interface BookRepository {
 
     List<Book> getAllProducts();
     List<Book> getAllProductsBy(String name, String author);
-    Boolean areValidBooks(List<UUID> booksID);
+    Boolean isValidBook(UUID bookID);
     void changeUnavailabilityOf(List<UUID> books);
-    void changeAvailabilityOf(List<UUID> books);
-    boolean areAvailable(List<UUID> books);
+    void changeAvailabilityOf(UUID book);
+    boolean areAvailable(UUID book);
 }

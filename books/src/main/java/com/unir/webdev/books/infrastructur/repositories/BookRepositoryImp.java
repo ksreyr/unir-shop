@@ -3,6 +3,8 @@ package com.unir.webdev.books.infrastructur.repositories;
 import com.unir.webdev.books.domain.Book;
 import com.unir.webdev.books.domain.repository.BookRepository;
 import com.unir.webdev.books.infrastructur.persistence.BookRepositoryJPA;
+import com.unir.webdev.books.infrastructur.persistence.entity.BookEntity;
+import com.unir.webdev.books.infrastructur.persistence.entity.valueObjects.Available;
 import com.unir.webdev.books.infrastructur.persistence.filter.BookSpec;
 import com.unir.webdev.books.infrastructur.persistence.mappers.BookMapper;
 import lombok.AccessLevel;
@@ -11,6 +13,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -37,9 +40,8 @@ public class BookRepositoryImp implements BookRepository {
     }
 
     @Override
-    public Boolean areValidBooks(List<UUID> booksID) {
-        return booksID.stream()
-                      .allMatch(bookRepositoryJPA :: existsById);
+    public Boolean isValidBook(UUID bookID) {
+        return bookRepositoryJPA.existsById(bookID);
     }
 
     @Override
@@ -52,22 +54,21 @@ public class BookRepositoryImp implements BookRepository {
     }
 
     @Override
-    public void changeAvailabilityOf(List<UUID> books) {
-        books.stream()
-             .map(bookRepositoryJPA :: findById)
-             .map(bookEntity -> bookEntity.get()
-                                          .makeAvailable())
-             .forEach(bookRepositoryJPA :: save);
+    public void changeAvailabilityOf(UUID book) {
+        Optional.ofNullable(book)
+                .map(bookRepositoryJPA :: findById)
+                .map(bookEntity -> bookEntity.get().makeAvailable())
+                .ifPresent(bookRepositoryJPA :: save);
     }
 
 
     @Override
-    public boolean areAvailable(List<UUID> booksIDs) {
-        return booksIDs.stream()
+    public boolean areAvailable(UUID bookID) {
+        return Optional.ofNullable(bookID)
                        .map(bookRepositoryJPA :: findById)
-                       .allMatch(bookEntity -> bookEntity.get()
-                                                         .available()
-                                                         .available());
+                       .flatMap(bookEntity -> bookEntity.map(BookEntity :: available))
+                       .map(Available :: available)
+                       .orElse(false);
 
     }
 }
