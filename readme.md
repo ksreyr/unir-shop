@@ -55,6 +55,12 @@ La documentación de la API para ambos servicios está disponible a través de S
 3. Ejecutar cada microservicio usando Maven, por ejemplo: `mvn spring-boot:run` en cada directorio de microservicio.
 4. Acceder a la interfaz de Swagger para interactuar con la API.
 
+## Detalles
+
+### Modelo
+
+![Diagrama](./docs/database-model.png)
+
 ## Contribuciones
 Las contribuciones al proyecto son bienvenidas despues de la entrega ya que es necesario que para la calificacion unicamente los participantes del grupo colaboren. Se sugiere seguir las prácticas comunes de desarrollo colaborativo utilizando GitHub (forks, pull requests, issues).
 

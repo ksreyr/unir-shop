@@ -3,10 +3,10 @@ package com.unir.webdev.orders.application;
 import com.unir.webdev.orders.domain.repository.RequestRepository;
 import com.unir.webdev.orders.domain.response.Result;
 import com.unir.webdev.orders.infrastructure.events.ChangeAvailabilityEvent;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
