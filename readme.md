@@ -1,4 +1,4 @@
-# README para el Proyecto UNIR Shop
+# README para el Proyecto UNIR Bookshop
 
 ## Descripción General
 UNIR Shop es un sistema de gestión de pedidos y compras de libros implementado como un conjunto de microservicios. Cada microservicio se encarga de una parte específica de la funcionalidad del sistema, como la gestión de libros, solicitudes y el servicio de pasarela.
@@ -56,6 +56,6 @@ La documentación de la API para ambos servicios está disponible a través de S
 4. Acceder a la interfaz de Swagger para interactuar con la API.
 
 ## Contribuciones
-Las contribuciones al proyecto son bienvenidas despues de la entrega ya que es necesario que para al calificacion unicamente lo participantes del grupo colaboren. Se sugiere seguir las prácticas comunes de desarrollo colaborativo utilizando GitHub (forks, pull requests, issues).
+Las contribuciones al proyecto son bienvenidas despues de la entrega ya que es necesario que para la calificacion unicamente los participantes del grupo colaboren. Se sugiere seguir las prácticas comunes de desarrollo colaborativo utilizando GitHub (forks, pull requests, issues).
 
 ---
