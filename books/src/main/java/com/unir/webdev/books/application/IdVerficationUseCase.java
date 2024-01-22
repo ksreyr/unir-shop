@@ -15,6 +15,6 @@ import java.util.UUID;
 public class IdVerficationUseCase {
     BookRepository bookRepository;
     public Boolean verify(List<UUID> booksID){
-        return bookRepository.areValidateIDs(booksID);
+        return bookRepository.areValidBooks(booksID);
     }
 }

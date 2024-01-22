@@ -9,16 +9,21 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults (level = AccessLevel.PRIVATE, makeFinal = true)
 public class ChangeAvailabilityUseCase {
     BookRepository bookRepository;
 
-    public Result<String, Objects> changeAvailability(List<UUID> booksID){
-        bookRepository.changeAvailabilityOf(booksID);
-        return Result.success("saved");
+    public Result<String, Object> changeAvailability(List<UUID> booksID) {
+        return Optional.ofNullable(booksID)
+                .filter(bookRepository :: areValidBooks)
+                .map(uuids -> {
+                    bookRepository.changeAvailabilityOf(uuids);
+                    return Result.success("saved");
+                }).orElse(Result.error("Not Valid Data"));
     }
 }

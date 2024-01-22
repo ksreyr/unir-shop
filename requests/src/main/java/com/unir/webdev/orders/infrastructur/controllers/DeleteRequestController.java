@@ -1,6 +1,7 @@
 package com.unir.webdev.orders.infrastructur.controllers;
 
 import com.unir.webdev.orders.application.DeleteRequestsUseCase;
+import com.unir.webdev.orders.domain.response.Result;
 import com.unir.webdev.orders.infrastructur.controllers.dto.DeleteRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -23,15 +24,19 @@ public class DeleteRequestController {
     public ResponseEntity<?> deleteRequest(DeleteRequest deleteRequest) {
         return Optional.ofNullable(deleteRequest)
                        .filter(DeleteRequest :: isNotNull)
-                       .map(requestToDelete -> deleteRequestsUseCase.deleteRequest(requestToDelete.requestUUID()))
-                       .map(stringStringResult -> {
-                           if (stringStringResult.isSuccess()) {
-                               return ResponseEntity.ok(stringStringResult.getSuccess());
-                           } return ResponseEntity.badRequest()
-                                                  .body(stringStringResult.getError());
-                       })
+                       .map(DeleteRequest :: requestUUID)
+                       .map(deleteRequestsUseCase :: deleteRequest)
+                       .map(DeleteRequestController :: buildResponse)
                        .orElseGet(() -> ResponseEntity.badRequest()
                                                       .body("Bad Resquest"));
 
+    }
+
+    private static ResponseEntity<String> buildResponse(Result<String, Object> stringStringResult) {
+        return stringStringResult.isSuccess() ?
+               ResponseEntity.ok(stringStringResult.getSuccess()) :
+               ResponseEntity.badRequest()
+                             .body(stringStringResult.getError()
+                                                                                                                                           .toString());
     }
 }

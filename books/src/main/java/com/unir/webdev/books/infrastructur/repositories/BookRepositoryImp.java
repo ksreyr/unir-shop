@@ -37,7 +37,7 @@ public class BookRepositoryImp implements BookRepository {
     }
 
     @Override
-    public Boolean areValidateIDs(List<UUID> booksID) {
+    public Boolean areValidBooks(List<UUID> booksID) {
         return booksID.stream()
                       .allMatch(bookRepositoryJPA :: existsById);
     }

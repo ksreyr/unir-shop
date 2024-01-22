@@ -24,15 +24,19 @@ public class CreateRequestController {
     @PostMapping ("/create")
     public ResponseEntity<?> handel(@RequestBody RequestCreation requestCreation) {
         return Optional.ofNullable(requestCreation)
-                                         .map(RequestCreation :: booksID)
-                                         .filter(booksID -> ! booksID.isEmpty())
-                                         .map(registerNewRequestUseCase :: createNewOder)
-                                         .map(stringObjectResult -> {
-                                             if(stringObjectResult.isSuccess()){
-                                                 return ResponseEntity.ok(stringObjectResult.getSuccess());
-                                             }
-                                             return ResponseEntity.badRequest().body(stringObjectResult.getError());
-                                         }).orElseGet(() -> ResponseEntity.badRequest().body("Bad Request given"));
+                       .map(RequestCreation :: booksID)
+                       .filter(booksID -> ! booksID.isEmpty())
+                       .map(registerNewRequestUseCase :: createNewOder)
+                       .map(CreateRequestController :: buildResponse)
+                       .orElseGet(() -> ResponseEntity.badRequest()
+                                                      .body("Bad Request given"));
+    }
+
+    private static ResponseEntity<Object> buildResponse(Result<String, Object> stringObjectResult) {
+        return stringObjectResult.isSuccess() ?
+               ResponseEntity.ok(stringObjectResult.getSuccess()) :
+               ResponseEntity.badRequest()
+                             .body(stringObjectResult.getError());
     }
 
 }

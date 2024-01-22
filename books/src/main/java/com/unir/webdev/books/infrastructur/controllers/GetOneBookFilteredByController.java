@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Optional;
+
 import static lombok.AccessLevel.PRIVATE;
 
 @Value
@@ -22,7 +25,12 @@ public class GetOneBookFilteredByController {
 
     @GetMapping ("/filterBy")
     public ResponseEntity<?> getAProduct(GetBookByRequest request) {
-        var productBy = getBookByUseCase.getBookBy(request.name(), request.author());
-        return ResponseEntity.ok().body(productBy);
+       return Optional.ofNullable(request)
+                .filter(GetBookByRequest :: existAuthor)
+                .filter(GetBookByRequest :: existBookName)
+                .map( getBookByRequest -> getBookByUseCase.getBookBy(request.name(), request.author()))
+                .map(books -> ResponseEntity.ok().body(books))
+                .orElse(ResponseEntity.badRequest().body(List.of()));
     }
+
 }
