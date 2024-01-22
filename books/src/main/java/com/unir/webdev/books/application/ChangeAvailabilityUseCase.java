@@ -22,7 +22,7 @@ public class ChangeAvailabilityUseCase {
                       .filter(bookRepository :: isValidBook)
                       .map(this :: changeAvailabilityOf)
                       .allMatch(Result :: isSuccess) ? Result.success("all changed") :
-               Result.error("all changed");
+               Result.error("Error change");
     }
 
     private @NotNull Result<String, Object> changeAvailabilityOf(UUID uuids) {
