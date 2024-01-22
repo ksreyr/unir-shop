@@ -6,7 +6,6 @@ import com.unir.webdev.books.domain.response.Result;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,18 +22,17 @@ public class RequestBookUseCase {
 
     public Result<String, Object> requestBooks(List<UUID> books) {
         return Optional.of(books.stream()
-                         .filter(bookRepository::isValidBook)
-                         .filter(bookRepository::areAvailable)
-                         .collect(Collectors.toList()))
-                .filter(list -> !list.isEmpty())
-                .map(this::sendEvents)
-                .orElse(Result.error("Bad Request"));
+                                .filter(bookRepository :: isValidBook)
+                                .filter(bookRepository :: areAvailable)
+                                .collect(Collectors.toList()))
+                       .filter(list -> ! list.isEmpty())
+                       .map(bookRepository :: changeUnavailabilityOf)
+                       .map(this :: sendEvents)
+                       .map(aBoolean -> Result.success("saved data"))
+                       .orElse(Result.error("Bad Request"));
     }
 
-    @NotNull
-    private Result<String, Object> sendEvents(List<UUID> books) {
-        bookEvents.requestBooksCreation(books);
-        bookRepository.changeUnavailabilityOf(books);
-        return Result.success("Request done");
+    private boolean sendEvents(List<UUID> books) {
+        return bookEvents.requestBooksCreation(books);
     }
 }

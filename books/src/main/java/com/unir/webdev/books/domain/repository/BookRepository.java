@@ -12,7 +12,7 @@ public interface BookRepository {
     List<Book> getAllProducts();
     List<Book> getAllProductsBy(String name, String author);
     Boolean isValidBook(UUID bookID);
-    void changeUnavailabilityOf(List<UUID> books);
+    List<UUID> changeUnavailabilityOf(List<UUID> books);
     void changeAvailabilityOf(UUID book);
     boolean areAvailable(UUID book);
 }

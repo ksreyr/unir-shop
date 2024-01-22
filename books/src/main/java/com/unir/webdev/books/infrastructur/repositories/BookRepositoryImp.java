@@ -45,19 +45,19 @@ public class BookRepositoryImp implements BookRepository {
     }
 
     @Override
-    public void changeUnavailabilityOf(List<UUID> books) {
-        books.stream()
-             .map(bookRepositoryJPA :: findById)
-             .map(bookEntity -> bookEntity.get()
-                                          .makeUnavailable())
-             .forEach(bookRepositoryJPA :: save);
+    public List<UUID> changeUnavailabilityOf(List<UUID> books) {
+        return books.stream()
+                    .map(bookRepositoryJPA :: findById)
+                    .map(bookEntity -> bookEntity.get().makeUnavailable())
+                    .map(bookRepositoryJPA :: save)
+                    .map(BookEntity :: bookId).toList();
     }
 
     @Override
     public void changeAvailabilityOf(UUID book) {
         Optional.ofNullable(book)
-                .map(bookRepositoryJPA :: findById)
-                .map(bookEntity -> bookEntity.get().makeAvailable())
+                .flatMap(bookRepositoryJPA :: findById)
+                .map(BookEntity :: makeAvailable)
                 .ifPresent(bookRepositoryJPA :: save);
     }
 
