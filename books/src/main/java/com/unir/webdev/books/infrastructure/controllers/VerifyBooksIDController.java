@@ -1,6 +1,6 @@
 package com.unir.webdev.books.infrastructure.controllers;
 
-import com.unir.webdev.books.application.IdVerficationUseCase;
+import com.unir.webdev.books.application.IdVerificationUseCase;
 import com.unir.webdev.books.infrastructure.controllers.DTO.request.BooksIdVerificationRequest;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,13 +18,13 @@ import java.util.Optional;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class VerifyBooksIDController {
-    IdVerficationUseCase idVerficationUseCase;
+    IdVerificationUseCase idVerificationUseCase;
     @PostMapping("/verify")
     public ResponseEntity<Boolean> verifyIds(@RequestBody BooksIdVerificationRequest booksIdVerificationRequest){
         return Optional.ofNullable(booksIdVerificationRequest)
                 .filter(BooksIdVerificationRequest :: isNotNullBooksID)
                 .map(BooksIdVerificationRequest :: booksID)
-                .map(idVerficationUseCase::verify)
+                .map(idVerificationUseCase ::verify)
                 .map(ResponseEntity :: ok)
                        .orElse(ResponseEntity.badRequest().body(false));
 

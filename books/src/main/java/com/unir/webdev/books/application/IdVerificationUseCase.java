@@ -12,7 +12,7 @@ import java.util.UUID;
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
-public class IdVerficationUseCase {
+public class IdVerificationUseCase {
     BookRepository bookRepository;
     public Boolean verify(List<UUID> booksID){
         return booksID.stream().allMatch(bookRepository :: isValidBook);

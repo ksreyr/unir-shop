@@ -1,14 +1,14 @@
 package com.unir.webdev.books.application;
 
 import com.unir.webdev.books.domain.repository.BookRepository;
-import com.unir.webdev.books.domain.response.Result;
+import io.vavr.collection.List;
+import io.vavr.control.Either;
+import io.vavr.control.Try;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -17,15 +17,16 @@ import java.util.UUID;
 public class ChangeAvailabilityUseCase {
     BookRepository bookRepository;
 
-    public Result<String, Object> changeAvailability(List<UUID> booksID) {
-        return booksID.stream()
+    public Either<String, Boolean> changeAvailability(List<UUID> booksID) {
+        return booksID.toStream()
                       .filter(bookRepository :: isValidBook)
                       .map(this :: changeAvailabilityOf)
-                      .allMatch(Result :: isSuccess) ? Result.success("all changed") :
-               Result.error("Error change");
+                      .map(either -> either.map(uuid -> true))
+                .getOrElse(Either.left("unknown ids"));
     }
 
-    private @NotNull Result<String, Object> changeAvailabilityOf(UUID uuids) {
-        bookRepository.changeAvailabilityOf(uuids); return Result.success("change");
+    private Either<String, UUID> changeAvailabilityOf(UUID uuid) {
+        return Try.of(() -> bookRepository.changeAvailabilityOf(uuid))
+                  .toEither("Availability do not changed");
     }
 }
