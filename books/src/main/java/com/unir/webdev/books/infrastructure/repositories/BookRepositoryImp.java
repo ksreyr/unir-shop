@@ -8,6 +8,7 @@ import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Avai
 import com.unir.webdev.books.infrastructure.persistence.filter.BookSpec;
 import com.unir.webdev.books.infrastructure.persistence.mappers.BookMapper;
 import io.vavr.control.Either;
+import io.vavr.control.Option;
 import io.vavr.control.Try;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class BookRepositoryImp implements BookRepository {
     BookRepositoryJPA bookRepositoryJPA;
     BookSpec bookSpec;
     @Override
-    public List<Book> getAllProducts() {
+    public List<Book> getAllBooks() {
         return bookRepositoryJPA.findAll()
                                 .stream()
                                 .map(BookMapper :: fromDbToDomain)
@@ -33,7 +34,7 @@ public class BookRepositoryImp implements BookRepository {
     }
 
     @Override
-    public List<Book> getBookssBy(String name, String author) {
+    public List<Book> getBooksBy(String name, String author) {
         return bookRepositoryJPA.findAll(bookSpec.filterColumns(name, author))
                                 .stream()
                                 .map(BookMapper :: fromDbToDomain)
@@ -76,8 +77,10 @@ public class BookRepositoryImp implements BookRepository {
     }
 
     @Override
-    public Either<String, Book> createBook(Book book) {
-        return null;
+    public Book createBook(Book book) {
+        return Try.of(()->bookRepositoryJPA.save(BookMapper.fromDomainToDb(book)))
+                .map(BookMapper :: fromDbToDomain)
+                  .get();
     }
 
 

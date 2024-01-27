@@ -3,7 +3,7 @@ GET http://localhost:8082/api/v1/books
 Content-Type: application/json
 
 ### Todos los libros
-GET http://localhost:8082/api/v1/books?author=Gabriel
+GET http://localhost:8082/api/v1/books?name=Orgullo
 Content-Type: application/json
 
 ### Todos los libros
@@ -31,7 +31,19 @@ Content-Type: application/json
 }
 
 
-### Todo: Create:Book
+### Create:Book
+POST http://localhost:8082/api/v1/books
+Content-Type: application/json
+
+{
+  "name": "Creacion el maravilloso libro",
+  "isbn": "13123-13413-1234",
+  "image": "url de imagen",
+  "author": "author",
+  "releaseYear": 2023,
+  "language": "Spanisch",
+  "rate": 3.4
+}
 
 ### TODO: Delete:Book
 
@@ -55,7 +67,7 @@ POST http://localhost:8082/api/v1/books/request
 Content-Type: application/json
 
 {
-  "booksID": ["8bf1d500-136e-47d6-8d1e-5d3641a68008"]
+  "booksID": ["5a436c89-a86f-42ca-9389-39d8842a20e2"]
 }
 
 ###All:Request
@@ -63,7 +75,7 @@ GET http://localhost:8081/api/v1/requests/all
 Content-Type: application/json
 
 ### Delete:Request
-DELETE http://localhost:8081/api/v1/requests?requestUUID=26d2a02f-fd33-4f0e-91c3-26683e4eca7d
+DELETE http://localhost:8081/api/v1/requests?requestUUID=25403c33-ea3c-42c2-ad0b-84b418a9c290
 Content-Type: application/json
 
 ### ChangeAvailability:Book

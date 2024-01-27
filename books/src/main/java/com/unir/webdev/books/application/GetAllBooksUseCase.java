@@ -17,6 +17,6 @@ import java.util.List;
 public class GetAllBooksUseCase {
     BookRepository bookRepository;
     public @NotNull Result<List<Book>, Object> getAllProducts(){
-        return Result.success(bookRepository.getAllProducts());
+        return Result.success(bookRepository.getAllBooks());
     }
 }

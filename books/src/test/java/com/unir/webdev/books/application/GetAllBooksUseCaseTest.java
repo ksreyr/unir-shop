@@ -23,12 +23,12 @@ class GetAllBooksUseCaseTest {
 
     /*@Property
     void nameIsAddedToHello(@ForAll @AlphaChars @StringLength (min = 1) String name) {
-        String greeting = getAllBooksUseCase.getAllProducts(name);
+        String greeting = getAllBooksUseCase.getAllBooks(name);
         Assertions.assertTrue(greeting.contains(name));
     }*/
     @Test
     void getAllProducts() {
-        Mockito.when(bookRepository.getAllProducts())
+        Mockito.when(bookRepository.getAllBooks())
                .thenReturn(List.of(new Book()));
         Result<List<Book>, Object> allProducts = getAllBooksUseCase.getAllProducts();
         Assertions.assertAll(
