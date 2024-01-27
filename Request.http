@@ -19,7 +19,7 @@ POST http://localhost:8081/api/v1/requests/create
 Content-Type: application/json
 
 {
-  "booksID": ["e568e3f5-6d12-4b6e-a9ca-931872ad4d53"]
+  "booksID": ["1b4405d6-7c42-4ec6-b232-9637442ac47c"]
 }
 
 ### Verificar: ShopCar
@@ -27,7 +27,7 @@ POST http://localhost:8082/api/v1/books/verify
 Content-Type: application/json
 
 {
-  "booksID": ["7ea17b5e-e47f-4bfd-a085-b64508fe7ddb"]
+  "booksID": ["c675c27e-1150-4360-b5ef-630797f6c08a"]
 }
 
 
@@ -35,34 +35,7 @@ Content-Type: application/json
 
 ### TODO: Delete:Book
 
-### TODO: Update:Book
-
-
-### Compra:Books
-POST http://localhost:8082/api/v1/books/request
-Content-Type: application/json
-
-{
-  "booksID": ["7ea17b5e-e47f-4bfd-a085-b64508fe7ddb"]
-}
-
-###All:Request
-GET http://localhost:8081/api/v1/requests/all
-Content-Type: application/json
-
-### Delete:Request
-DELETE http://localhost:8081/api/v1/requests?requestUUID=cd16a22f-b359-4927-8bc9-73ddec3be46c
-Content-Type: application/json
-
-### ChangeAvailability:Book
-PATCH http://localhost:8082/api/v1/books/availability
-Content-Type: application/json
-
-{
-  "booksID": ["2c30e590-cd40-463f-a502-772671d6ccff"]
-}
-
-### Update:Books
+###Update:Book
 PUT http://localhost:8082/api/v1/books?id=6f22c294-5611-4806-8c53-a6e3531802ab
 Content-Type: application/json
 
@@ -76,3 +49,28 @@ Content-Type: application/json
   "rate": 3.4,
   "available": true
 }
+
+### Compra:Books
+POST http://localhost:8082/api/v1/books/request
+Content-Type: application/json
+
+{
+  "booksID": ["8bf1d500-136e-47d6-8d1e-5d3641a68008"]
+}
+
+###All:Request
+GET http://localhost:8081/api/v1/requests/all
+Content-Type: application/json
+
+### Delete:Request
+DELETE http://localhost:8081/api/v1/requests?requestUUID=26d2a02f-fd33-4f0e-91c3-26683e4eca7d
+Content-Type: application/json
+
+### ChangeAvailability:Book
+PATCH http://localhost:8082/api/v1/books/availability
+Content-Type: application/json
+
+{
+  "booksID": ["c675c27e-1150-4360-b5ef-630797f6c08a"]
+}
+
