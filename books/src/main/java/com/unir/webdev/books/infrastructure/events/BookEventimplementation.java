@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults (level = AccessLevel.PRIVATE, makeFinal = true)
 public class BookEventimplementation implements BookEvents {
 
     RestTemplate restTemplate;

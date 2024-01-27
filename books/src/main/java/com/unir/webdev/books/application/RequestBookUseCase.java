@@ -32,6 +32,6 @@ public class RequestBookUseCase {
     private Either<String, Boolean> sendEvents(List<UUID> books) {
         return Try.of(() -> bookEvents.requestBooksCreation(books.asJava()))
                   .onFailure(throwable -> books.forEach(bookRepository :: changeAvailabilityOf))
-                  .toEither("Create Event Failed");
+                  .toEither("Send Event For Request Books Failed");
     }
 }

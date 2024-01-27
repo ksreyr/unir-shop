@@ -26,7 +26,7 @@ public class BookRepositoryImp implements BookRepository {
     BookSpec bookSpec;
 
     @Override
-    public List<Book> getAllProducts() {
+    public List<Book> getAllBooks() {
         return bookRepositoryJPA.findAll()
                                 .stream()
                                 .map(BookMapper :: fromDbToDomain)
@@ -34,7 +34,7 @@ public class BookRepositoryImp implements BookRepository {
     }
 
     @Override
-    public List<Book> getAllProductsBy(String name, String author) {
+    public List<Book> getBooksBy(String name, String author) {
         return bookRepositoryJPA.findAll(bookSpec.filterColumns(name, author))
                                 .stream()
                                 .map(BookMapper :: fromDbToDomain)
@@ -48,12 +48,12 @@ public class BookRepositoryImp implements BookRepository {
 
     @Override
     public Either<String, UUID> changeToUnavailability(UUID book) {
-        return Try.of(() ->Optional.of(book)
-                              .flatMap(bookRepositoryJPA :: findById)
-                              .map(BookEntity :: makeUnavailable)
-                              .map(bookRepositoryJPA :: save)
-                              .map(BookEntity :: bookId)
-                              .get())
+        return Try.of(() -> Optional.of(book)
+                                    .flatMap(bookRepositoryJPA :: findById)
+                                    .map(BookEntity :: makeUnavailable)
+                                    .map(bookRepositoryJPA :: save)
+                                    .map(BookEntity :: bookId)
+                                    .get())
                   .toEither("Not changed Availability at DB");
     }
 
@@ -65,6 +65,23 @@ public class BookRepositoryImp implements BookRepository {
                        .map(bookRepositoryJPA :: save)
                        .map(BookEntity :: bookId)
                        .orElseThrow(IllegalStateException :: new);
+    }
+
+    @Override
+    public Either<String, Book> updateBook(Book book) {
+        return Try.of(() -> bookRepositoryJPA.findById(book.bookId())
+                                             .get())
+                  .map(bookEntity -> bookEntity.updateEntity(BookMapper.fromDomainToDb(book)))
+                  .map(bookRepositoryJPA :: save)
+                  .map(BookMapper :: fromDbToDomain)
+                  .toEither("Not update possible at DB");
+    }
+
+    @Override
+    public Either<String, Book> createBook(Book book) {
+        return Try.of(() -> bookRepositoryJPA.save(BookMapper.fromDomainToDb(book)))
+                  .map(BookMapper :: fromDbToDomain)
+                  .toEither("Error to save at DB");
     }
 
 
