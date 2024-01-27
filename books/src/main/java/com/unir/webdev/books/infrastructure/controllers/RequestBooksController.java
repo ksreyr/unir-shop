@@ -1,7 +1,6 @@
 package com.unir.webdev.books.infrastructure.controllers;
 
 import com.unir.webdev.books.application.RequestBookUseCase;
-import com.unir.webdev.books.domain.response.Result;
 import com.unir.webdev.books.infrastructure.controllers.DTO.request.BooksIdVerificationRequest;
 import io.vavr.collection.List;
 import io.vavr.control.Either;
@@ -24,7 +23,7 @@ public class RequestBooksController {
     RequestBookUseCase requestBookUseCase;
 
     @PostMapping ("/request")
-    public ResponseEntity<?> verifyIds(@RequestBody BooksIdVerificationRequest booksIdVerificationRequest) {
+    public ResponseEntity<?> createRequest(@RequestBody BooksIdVerificationRequest booksIdVerificationRequest) {
         return Option.of(booksIdVerificationRequest)
                      .filter(BooksIdVerificationRequest :: isNotNullBooksID)
                      .map(BooksIdVerificationRequest :: booksID)

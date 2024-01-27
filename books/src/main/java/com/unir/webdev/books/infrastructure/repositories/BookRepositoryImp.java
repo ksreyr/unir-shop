@@ -24,7 +24,6 @@ import java.util.UUID;
 public class BookRepositoryImp implements BookRepository {
     BookRepositoryJPA bookRepositoryJPA;
     BookSpec bookSpec;
-
     @Override
     public List<Book> getAllProducts() {
         return bookRepositoryJPA.findAll()
@@ -34,7 +33,7 @@ public class BookRepositoryImp implements BookRepository {
     }
 
     @Override
-    public List<Book> getAllProductsBy(String name, String author) {
+    public List<Book> getBookssBy(String name, String author) {
         return bookRepositoryJPA.findAll(bookSpec.filterColumns(name, author))
                                 .stream()
                                 .map(BookMapper :: fromDbToDomain)
@@ -65,6 +64,20 @@ public class BookRepositoryImp implements BookRepository {
                        .map(bookRepositoryJPA :: save)
                        .map(BookEntity :: bookId)
                        .orElseThrow(IllegalStateException :: new);
+    }
+
+    @Override
+    public Either<String, Book> updateBook(Book book) {
+        return Try.of(()->bookRepositoryJPA.findById(book.bookId()).get())
+                .map(bookEntity -> bookEntity.updateEntity(BookMapper.fromDomainToDb(book)))
+                .map(bookRepositoryJPA::save)
+                .map(BookMapper::fromDbToDomain)
+                .toEither("Not update possible at DB");
+    }
+
+    @Override
+    public Either<String, Book> createBook(Book book) {
+        return null;
     }
 
 

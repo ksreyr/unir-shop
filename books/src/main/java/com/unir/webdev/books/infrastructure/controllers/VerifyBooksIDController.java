@@ -27,6 +27,5 @@ public class VerifyBooksIDController {
                 .map(idVerificationUseCase ::verify)
                 .map(ResponseEntity :: ok)
                        .orElse(ResponseEntity.badRequest().body(false));
-
     }
 }

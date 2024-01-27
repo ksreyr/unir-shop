@@ -1,9 +1,13 @@
-### Libros Filtrados
-GET http://localhost:8082/api/v1/books/filterBy?author=Jane&name=
+### Todos los libros
+GET http://localhost:8082/api/v1/books
 Content-Type: application/json
 
 ### Todos los libros
-GET http://localhost:8082/api/v1/books/all
+GET http://localhost:8082/api/v1/books?author=Gabriel
+Content-Type: application/json
+
+### Todos los libros
+GET http://localhost:8082/api/v1/books?name=Cien
 Content-Type: application/json
 
 ###HealthCheck Request
@@ -23,7 +27,7 @@ POST http://localhost:8082/api/v1/books/verify
 Content-Type: application/json
 
 {
-  "booksID": ["a6cf2efe-f2d1-4b3d-9e92-d0c2283f2e0a"]
+  "booksID": ["7ea17b5e-e47f-4bfd-a085-b64508fe7ddb"]
 }
 
 
@@ -39,7 +43,7 @@ POST http://localhost:8082/api/v1/books/request
 Content-Type: application/json
 
 {
-  "booksID": ["d23a981e-aeae-4927-888f-0e46bd8772e7"]
+  "booksID": ["7ea17b5e-e47f-4bfd-a085-b64508fe7ddb"]
 }
 
 ###All:Request
@@ -50,10 +54,25 @@ Content-Type: application/json
 DELETE http://localhost:8081/api/v1/requests?requestUUID=cd16a22f-b359-4927-8bc9-73ddec3be46c
 Content-Type: application/json
 
-###ChangeAvailability:Book
-POST http://localhost:8082/api/v1/books/changeAvailability
+### ChangeAvailability:Book
+PATCH http://localhost:8082/api/v1/books/availability
 Content-Type: application/json
 
 {
-  "booksID": ["6c7a8b35-368c-4de8-875e-954131a485ba"]
+  "booksID": ["2c30e590-cd40-463f-a502-772671d6ccff"]
+}
+
+### Update:Books
+PUT http://localhost:8082/api/v1/books?id=6f22c294-5611-4806-8c53-a6e3531802ab
+Content-Type: application/json
+
+{
+  "name": "Actualizado el maravilloso libro",
+  "isbn": "13123-13413-1234",
+  "image": "url de imagen",
+  "author": "author",
+  "releaseYear": 2023,
+  "language": "Spanisch",
+  "rate": 3.4,
+  "available": true
 }

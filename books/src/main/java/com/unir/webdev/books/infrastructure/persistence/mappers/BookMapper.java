@@ -12,6 +12,7 @@ import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Rate
 import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.ReleaseYear;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
 public class BookMapper {
     @Contract ("_ -> new")
     public static @NotNull Book fromDbToDomain(@NotNull BookEntity bookEntity) {

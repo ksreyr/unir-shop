@@ -53,6 +53,7 @@ public class BookEntity {
 
     @Embedded
     Language language;
+
     @Embedded
     Available available;
 
@@ -62,6 +63,18 @@ public class BookEntity {
     }
     public BookEntity makeAvailable() {
         this.available = new Available(true);
+        return this;
+    }
+
+    public BookEntity updateEntity(BookEntity book){
+        this.bookName = new BookName(book.bookName.bookName());
+        this.isbn = new Isbn(book.isbn.isbn());
+        this.image = new Image(book.image.url());
+        this.author = new Author(book.author.author());
+        this.releaseYear = new ReleaseYear(book.releaseYear.releaseYear());
+        this.rate = new Rate(book.rate.rate());
+        this.language = new Language(book.language.language());
+        this.available = new Available(book.available.available());
         return this;
     }
 }

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,18 +23,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChangeAvailabilityBookController {
     ChangeAvailabilityUseCase changeAvailabilityUseCase;
 
-    @PostMapping ("/changeAvailability")
+    @PatchMapping ("/availability")
     public ResponseEntity<?> handle(@RequestBody ChangeAvailabilityRequest changeAvailabilityRequest) {
         return Option.of(changeAvailabilityRequest)
                      .filter(ChangeAvailabilityRequest :: existBooks)
                      .map(ChangeAvailabilityRequest :: booksID)
                      .map(List :: ofAll)
                      .map(changeAvailabilityUseCase :: changeAvailability)
-                     .map(Either :: getLeft)
-                     .map(ResponseEntity :: ok)
-                     .getOrElse(ResponseEntity.badRequest()
-                                              .body("Bad Request Given"));
+                     .map(ChangeAvailabilityBookController :: buildResponse)
+                     .getOrElse(ResponseEntity.badRequest().body("Invalid Data Given"));
 
+    }
+
+    @NotNull
+    private static ResponseEntity<String> buildResponse(Either<String, Boolean> booleans) {
+        return booleans.isLeft() ? ResponseEntity.unprocessableEntity()
+                                                 .body(booleans.getLeft()) : ResponseEntity.ok()
+                                                                                           .body("Availability Changed");
     }
 
 
