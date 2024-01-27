@@ -24,9 +24,9 @@ public class CreateBookController {
     @NotNull
     private static ResponseEntity<String> buildResponse(Either<String, Book> books) {
         return books.isLeft() ? ResponseEntity.badRequest()
-                                              .body("Data " + "unprocessable") :
-               ResponseEntity.ok()
-                                                                                               .body("book created");
+                                              .body("Data " + "unprocessable")
+                              : ResponseEntity.ok()
+                                              .body("book created");
     }
 
     @NotNull

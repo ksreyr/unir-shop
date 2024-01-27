@@ -20,6 +20,14 @@ import java.util.Optional;
 public class DeleteRequestController {
     DeleteRequestsUseCase deleteRequestsUseCase;
 
+    private static ResponseEntity<String> buildResponse(Result<String, Object> stringStringResult) {
+        return stringStringResult.isSuccess()
+               ? ResponseEntity.ok(stringStringResult.getSuccess())
+               : ResponseEntity.badRequest()
+                               .body(stringStringResult.getError()
+                                                       .toString());
+    }
+
     @DeleteMapping
     public ResponseEntity<?> deleteRequest(DeleteRequest deleteRequest) {
         return Optional.ofNullable(deleteRequest)
@@ -30,13 +38,5 @@ public class DeleteRequestController {
                        .orElseGet(() -> ResponseEntity.badRequest()
                                                       .body("Bad Resquest"));
 
-    }
-
-    private static ResponseEntity<String> buildResponse(Result<String, Object> stringStringResult) {
-        return stringStringResult.isSuccess() ?
-               ResponseEntity.ok(stringStringResult.getSuccess()) :
-               ResponseEntity.badRequest()
-                             .body(stringStringResult.getError()
-                                                                                                                                           .toString());
     }
 }

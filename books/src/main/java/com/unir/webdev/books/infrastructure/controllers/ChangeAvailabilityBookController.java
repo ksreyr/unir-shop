@@ -25,9 +25,9 @@ public class ChangeAvailabilityBookController {
     @NotNull
     private static ResponseEntity<String> buildResponse(Either<String, Boolean> booleans) {
         return booleans.isLeft() ? ResponseEntity.unprocessableEntity()
-                                                 .body(booleans.getLeft()) :
-               ResponseEntity.ok()
-                                                                                           .body("Availability Changed");
+                                                 .body(booleans.getLeft())
+                                 : ResponseEntity.ok()
+                                                 .body("Availability Changed");
     }
 
     @PatchMapping ("/availability")

@@ -40,8 +40,8 @@ public class UpdateBookController {
     @NotNull
     private static ResponseEntity<String> buildResponse(@NotNull Either<String, Book> books) {
         return books.isLeft() ? ResponseEntity.badRequest()
-                                              .body(books.getLeft()) :
-               ResponseEntity.ok("Process done");
+                                              .body(books.getLeft())
+                              : ResponseEntity.ok("Process done");
     }
 
     @PutMapping ("")
