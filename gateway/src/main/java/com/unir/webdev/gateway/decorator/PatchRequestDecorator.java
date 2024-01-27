@@ -18,13 +18,12 @@ import reactor.core.publisher.Flux;
 import java.net.URI;
 
 @Slf4j
-public class PostRequestDecorator extends ServerHttpRequestDecorator {
+public class PatchRequestDecorator extends ServerHttpRequestDecorator {
 
     private final GatewayRequest gatewayRequest;
-
     private final ObjectMapper objectMapper;
 
-    public PostRequestDecorator(GatewayRequest gatewayRequest, ObjectMapper objectMapper) {
+    public PatchRequestDecorator(GatewayRequest gatewayRequest, ObjectMapper objectMapper) {
         super(gatewayRequest.getExchange().getRequest());
         this.gatewayRequest = gatewayRequest;
         this.objectMapper = objectMapper;
@@ -33,7 +32,7 @@ public class PostRequestDecorator extends ServerHttpRequestDecorator {
     @Override
     @NonNull
     public HttpMethod getMethod() {
-        return HttpMethod.POST;
+        return HttpMethod.PATCH;
     }
 
     @Override

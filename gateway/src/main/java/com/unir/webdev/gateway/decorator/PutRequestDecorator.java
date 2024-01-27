@@ -18,13 +18,12 @@ import reactor.core.publisher.Flux;
 import java.net.URI;
 
 @Slf4j
-public class PostRequestDecorator extends ServerHttpRequestDecorator {
+public class PutRequestDecorator  extends ServerHttpRequestDecorator {
 
     private final GatewayRequest gatewayRequest;
-
     private final ObjectMapper objectMapper;
 
-    public PostRequestDecorator(GatewayRequest gatewayRequest, ObjectMapper objectMapper) {
+    public PutRequestDecorator(GatewayRequest gatewayRequest, ObjectMapper objectMapper) {
         super(gatewayRequest.getExchange().getRequest());
         this.gatewayRequest = gatewayRequest;
         this.objectMapper = objectMapper;
@@ -33,7 +32,7 @@ public class PostRequestDecorator extends ServerHttpRequestDecorator {
     @Override
     @NonNull
     public HttpMethod getMethod() {
-        return HttpMethod.POST;
+        return HttpMethod.PUT;
     }
 
     @Override
@@ -41,7 +40,9 @@ public class PostRequestDecorator extends ServerHttpRequestDecorator {
     public URI getURI() {
         return UriComponentsBuilder
                 .fromUri((URI) gatewayRequest.getExchange().getAttributes().get(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR))
-                .build().toUri();
+                .queryParams(gatewayRequest.getQueryParams())
+                .build()
+                .toUri();
     }
 
     @Override
@@ -60,5 +61,4 @@ public class PostRequestDecorator extends ServerHttpRequestDecorator {
         buffer.write(bodyData);
         return Flux.just(buffer);
     }
-
 }
