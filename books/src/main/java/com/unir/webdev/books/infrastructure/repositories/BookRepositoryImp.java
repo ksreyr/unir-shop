@@ -8,6 +8,7 @@ import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Avai
 import com.unir.webdev.books.infrastructure.persistence.filter.BookSpec;
 import com.unir.webdev.books.infrastructure.persistence.mappers.BookMapper;
 import io.vavr.control.Either;
+import io.vavr.control.Try;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -46,14 +47,14 @@ public class BookRepositoryImp implements BookRepository {
     }
 
     @Override
-    public Either<Object, UUID> changeToUnavailability(UUID book) {
-        return Optional.of(book)
-                       .flatMap(bookRepositoryJPA :: findById)
-                       .map(BookEntity :: makeUnavailable)
-                       .map(bookRepositoryJPA :: save)
-                       .map(BookEntity :: bookId)
-                       .map(Either :: right)
-                       .orElse(Either.left("Not changed Availability at DB"));
+    public Either<String, UUID> changeToUnavailability(UUID book) {
+        return Try.of(() ->Optional.of(book)
+                              .flatMap(bookRepositoryJPA :: findById)
+                              .map(BookEntity :: makeUnavailable)
+                              .map(bookRepositoryJPA :: save)
+                              .map(BookEntity :: bookId)
+                              .get())
+                  .toEither("Not changed Availability at DB");
     }
 
     @Override

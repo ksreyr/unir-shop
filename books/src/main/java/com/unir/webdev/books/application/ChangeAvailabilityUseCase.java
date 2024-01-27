@@ -18,8 +18,7 @@ public class ChangeAvailabilityUseCase {
     BookRepository bookRepository;
 
     public Either<String, Boolean> changeAvailability(List<UUID> booksID) {
-        return booksID.toStream()
-                      .filter(bookRepository :: isValidBook)
+        return booksID.filter(bookRepository :: isValidBook)
                       .map(this :: changeAvailabilityOf)
                       .map(either -> either.map(uuid -> true))
                 .getOrElse(Either.left("unknown ids"));
