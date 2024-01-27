@@ -11,10 +11,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+@FieldDefaults (makeFinal = true, level = AccessLevel.PRIVATE)
 public class GetBookByUseCase {
     BookRepository bookRepository;
-    public List<Book> getBookBy(String name, String author){
+
+    public List<Book> getBookBy(String name, String author) {
         return bookRepository.getBooksBy(name, author);
     }
 }

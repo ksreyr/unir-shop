@@ -26,21 +26,11 @@ import java.util.UUID;
 public class UpdateBookController {
     UpdateBookUseCase updateBookUseCase;
 
-    @PutMapping ("")
-    public ResponseEntity<?> updateController(@RequestBody UpdateBookRequest updateBookRequest, @RequestParam UUID id) {
-        return Option.of(updateBookRequest)
-                     .filter(updateBookRequest1 -> updateBookRequest.validData())
-                     .map(updateBookRequest1 -> requestToDomain(updateBookRequest, id))
-                     .map(updateBookUseCase :: updateBook)
-                     .map(UpdateBookController :: buildResponse)
-                     .getOrElse(() -> ResponseEntity.badRequest()
-                                                    .body("Invalid Request Data"));
-    }
-
     @Contract ("_, _ -> new")
     @NotNull
-    private static Book requestToDomain(@NotNull UpdateBookRequest updateBookRequest,
-                                        UUID id) {
+    private static Book requestToDomain(
+            @NotNull UpdateBookRequest updateBookRequest, UUID id
+                                       ) {
         return Book.toUpdate(id, updateBookRequest.name(), updateBookRequest.isbn(),
                              updateBookRequest.image(), updateBookRequest.author(),
                              updateBookRequest.releaseYear(), updateBookRequest.rate(),
@@ -52,5 +42,16 @@ public class UpdateBookController {
         return books.isLeft() ? ResponseEntity.badRequest()
                                               .body(books.getLeft()) :
                ResponseEntity.ok("Process done");
+    }
+
+    @PutMapping ("")
+    public ResponseEntity<?> updateController(@RequestBody UpdateBookRequest updateBookRequest, @RequestParam UUID id) {
+        return Option.of(updateBookRequest)
+                     .filter(updateBookRequest1 -> updateBookRequest.validData())
+                     .map(updateBookRequest1 -> requestToDomain(updateBookRequest, id))
+                     .map(updateBookUseCase :: updateBook)
+                     .map(UpdateBookController :: buildResponse)
+                     .getOrElse(() -> ResponseEntity.badRequest()
+                                                    .body("Invalid Request Data"));
     }
 }

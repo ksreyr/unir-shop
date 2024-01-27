@@ -21,20 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class CreateBookController {
     CreateBookUseCase createBookUseCase;
 
-    @PostMapping ("")
-    public ResponseEntity<?> handle(@RequestBody CreateBookRequest createBookRequest) {
-        return Option.of(createBookRequest)
-                     .filter(CreateBookRequest :: validData)
-                     .map(CreateBookController :: requestToDomain)
-                     .map(createBookUseCase :: createBook)
-                     .map(CreateBookController :: buildResponse)
-                     .get();
-    }
-
     @NotNull
     private static ResponseEntity<String> buildResponse(Either<String, Book> books) {
         return books.isLeft() ? ResponseEntity.badRequest()
-                                              .body("Data " + "unprocessable") : ResponseEntity.ok()
+                                              .body("Data " + "unprocessable") :
+               ResponseEntity.ok()
                                                                                                .body("book created");
     }
 
@@ -43,5 +34,16 @@ public class CreateBookController {
         return Book.of(validRequest.name(), validRequest.isbn(), validRequest.image(),
                        validRequest.author(), validRequest.releaseYear(),
                        validRequest.rate(), validRequest.language(), true);
+    }
+
+    @PostMapping ("")
+    public ResponseEntity<?> handle(@RequestBody CreateBookRequest createBookRequest) {
+        return Option.of(createBookRequest)
+                     .filter(CreateBookRequest :: validData)
+                     .map(CreateBookController :: requestToDomain)
+                     .map(createBookUseCase :: createBook)
+                     .map(CreateBookController :: buildResponse)
+                     .getOrElse(ResponseEntity.badRequest()
+                                              .body("Invalid data"));
     }
 }

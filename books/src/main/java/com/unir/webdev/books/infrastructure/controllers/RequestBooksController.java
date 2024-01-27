@@ -22,6 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class RequestBooksController {
     RequestBookUseCase requestBookUseCase;
 
+    @NotNull
+    private static ResponseEntity<String> buildResponse(Either<String, Boolean> booleans) {
+        return booleans.isLeft() ? ResponseEntity.badRequest()
+                                                 .body(booleans.getLeft()) :
+               ResponseEntity.ok("Request successfully");
+    }
+
     @PostMapping ("/request")
     public ResponseEntity<?> createRequest(@RequestBody BooksIdVerificationRequest booksIdVerificationRequest) {
         return Option.of(booksIdVerificationRequest)
@@ -30,13 +37,8 @@ public class RequestBooksController {
                      .map(List :: ofAll)
                      .map(booksId -> requestBookUseCase.requestBooks(booksId))
                      .map(RequestBooksController :: buildResponse)
-                .getOrElse(ResponseEntity.badRequest().body("Not Required data"));
-    }
-
-    @NotNull
-    private static ResponseEntity<String> buildResponse(Either<String, Boolean> booleans) {
-        return booleans.isLeft() ? ResponseEntity.badRequest()
-                                                 .body(booleans.getLeft()) : ResponseEntity.ok("Request successfully");
+                     .getOrElse(ResponseEntity.badRequest()
+                                              .body("Not Required data"));
     }
 
 }

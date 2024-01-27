@@ -21,7 +21,7 @@ public class ChangeAvailabilityUseCase {
         return booksID.filter(bookRepository :: isValidBook)
                       .map(this :: changeAvailabilityOf)
                       .map(either -> either.map(uuid -> true))
-                .getOrElse(Either.left("unknown ids"));
+                      .getOrElse(Either.left("unknown ids"));
     }
 
     private Either<String, UUID> changeAvailabilityOf(UUID uuid) {

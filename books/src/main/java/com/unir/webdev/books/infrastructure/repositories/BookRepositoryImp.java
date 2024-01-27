@@ -8,7 +8,6 @@ import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Avai
 import com.unir.webdev.books.infrastructure.persistence.filter.BookSpec;
 import com.unir.webdev.books.infrastructure.persistence.mappers.BookMapper;
 import io.vavr.control.Either;
-import io.vavr.control.Option;
 import io.vavr.control.Try;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +24,7 @@ import java.util.UUID;
 public class BookRepositoryImp implements BookRepository {
     BookRepositoryJPA bookRepositoryJPA;
     BookSpec bookSpec;
+
     @Override
     public List<Book> getAllBooks() {
         return bookRepositoryJPA.findAll()
@@ -48,12 +48,12 @@ public class BookRepositoryImp implements BookRepository {
 
     @Override
     public Either<String, UUID> changeToUnavailability(UUID book) {
-        return Try.of(() ->Optional.of(book)
-                              .flatMap(bookRepositoryJPA :: findById)
-                              .map(BookEntity :: makeUnavailable)
-                              .map(bookRepositoryJPA :: save)
-                              .map(BookEntity :: bookId)
-                              .get())
+        return Try.of(() -> Optional.of(book)
+                                    .flatMap(bookRepositoryJPA :: findById)
+                                    .map(BookEntity :: makeUnavailable)
+                                    .map(bookRepositoryJPA :: save)
+                                    .map(BookEntity :: bookId)
+                                    .get())
                   .toEither("Not changed Availability at DB");
     }
 
@@ -69,18 +69,19 @@ public class BookRepositoryImp implements BookRepository {
 
     @Override
     public Either<String, Book> updateBook(Book book) {
-        return Try.of(()->bookRepositoryJPA.findById(book.bookId()).get())
-                .map(bookEntity -> bookEntity.updateEntity(BookMapper.fromDomainToDb(book)))
-                .map(bookRepositoryJPA::save)
-                .map(BookMapper::fromDbToDomain)
-                .toEither("Not update possible at DB");
+        return Try.of(() -> bookRepositoryJPA.findById(book.bookId())
+                                             .get())
+                  .map(bookEntity -> bookEntity.updateEntity(BookMapper.fromDomainToDb(book)))
+                  .map(bookRepositoryJPA :: save)
+                  .map(BookMapper :: fromDbToDomain)
+                  .toEither("Not update possible at DB");
     }
 
     @Override
-    public Book createBook(Book book) {
-        return Try.of(()->bookRepositoryJPA.save(BookMapper.fromDomainToDb(book)))
-                .map(BookMapper :: fromDbToDomain)
-                  .get();
+    public Either<String, Book> createBook(Book book) {
+        return Try.of(() -> bookRepositoryJPA.save(BookMapper.fromDomainToDb(book)))
+                  .map(BookMapper :: fromDbToDomain)
+                  .toEither("Error to save at DB");
     }
 
 

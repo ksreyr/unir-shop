@@ -11,11 +11,18 @@ import java.util.UUID;
 public interface BookRepository {
 
     List<Book> getAllBooks();
+
     List<Book> getBooksBy(String name, String author);
+
     Boolean isValidBook(UUID bookID);
+
     Either<String, UUID> changeToUnavailability(UUID books);
+
     UUID changeAvailabilityOf(UUID book);
+
     Either<String, Book> updateBook(Book book);
-    Book createBook(Book book);
+
+    Either<String, Book> createBook(Book book);
+
     boolean areAvailable(UUID book);
 }

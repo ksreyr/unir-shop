@@ -23,13 +23,17 @@ import static lombok.AccessLevel.PRIVATE;
 public class GetOneBookFilteredByController {
     GetBookByUseCase getBookByUseCase;
     GetAllBooksUseCase getAllBooksUseCase;
+
     @GetMapping ("")
     public ResponseEntity<?> getBooks(GetBookByRequest request) {
-       return Optional.ofNullable(request)
-                .filter(getBookByRequest1 -> GetBookByRequest.existAuthor(getBookByRequest1)|| GetBookByRequest.existBookName(getBookByRequest1))
-                .map( getBookByRequest -> getBookByUseCase.getBookBy(request.name(), request.author()))
-                .map(books -> ResponseEntity.ok().body(books))
-                .orElse(ResponseEntity.ok().body(getAllBooksUseCase.getAllProducts().getSuccess()));
+        return Optional.ofNullable(request)
+                       .filter(getBookByRequest1 -> GetBookByRequest.existAuthor(getBookByRequest1) || GetBookByRequest.existBookName(getBookByRequest1))
+                       .map(getBookByRequest -> getBookByUseCase.getBookBy(request.name(), request.author()))
+                       .map(books -> ResponseEntity.ok()
+                                                   .body(books))
+                       .orElse(ResponseEntity.ok()
+                                             .body(getAllBooksUseCase.getAllProducts()
+                                                                     .getSuccess()));
     }
 
 }

@@ -25,12 +25,12 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Accessors(fluent = true)
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@Accessors (fluent = true)
+@FieldDefaults (level = AccessLevel.PRIVATE)
 @Entity
 public class BookEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue (strategy = GenerationType.UUID)
     UUID bookId;
 
     @Embedded
@@ -61,12 +61,13 @@ public class BookEntity {
         this.available = new Available(false);
         return this;
     }
+
     public BookEntity makeAvailable() {
         this.available = new Available(true);
         return this;
     }
 
-    public BookEntity updateEntity(BookEntity book){
+    public BookEntity updateEntity(BookEntity book) {
         this.bookName = new BookName(book.bookName.bookName());
         this.isbn = new Isbn(book.isbn.isbn());
         this.image = new Image(book.image.url());

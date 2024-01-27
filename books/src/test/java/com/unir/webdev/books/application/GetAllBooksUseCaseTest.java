@@ -33,13 +33,10 @@ class GetAllBooksUseCaseTest {
         Result<List<Book>, Object> allProducts = getAllBooksUseCase.getAllProducts();
         Assertions.assertAll(
                 () -> Assertions.assertTrue(allProducts.isSuccess(), "El resultado " +
-                                                                     "debería ser un " +
-                                                                     "éxito"),
+                                                                     "debería ser un " + "éxito"),
 
                 () -> Assertions.assertEquals(1, allProducts.getSuccess()
                                                             .size(), "El " + "tama" +
-                                                                     "ño de" + " la " +
-                                                                     "lista de éxito " +
-                                                                     "debería ser 1"));
+                                                                     "ño de" + " la " + "lista de éxito " + "debería ser 1"));
     }
 }

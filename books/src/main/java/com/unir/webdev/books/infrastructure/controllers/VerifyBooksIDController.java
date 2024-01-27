@@ -14,18 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/v1/books")
+@RequestMapping ("api/v1/books")
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults (level = AccessLevel.PRIVATE)
 public class VerifyBooksIDController {
     IdVerificationUseCase idVerificationUseCase;
-    @PostMapping("/verify")
-    public ResponseEntity<Boolean> verifyIds(@RequestBody BooksIdVerificationRequest booksIdVerificationRequest){
+
+    @PostMapping ("/verify")
+    public ResponseEntity<Boolean> verifyIds(@RequestBody BooksIdVerificationRequest booksIdVerificationRequest) {
         return Optional.ofNullable(booksIdVerificationRequest)
-                .filter(BooksIdVerificationRequest :: isNotNullBooksID)
-                .map(BooksIdVerificationRequest :: booksID)
-                .map(idVerificationUseCase ::verify)
-                .map(ResponseEntity :: ok)
-                       .orElse(ResponseEntity.badRequest().body(false));
+                       .filter(BooksIdVerificationRequest :: isNotNullBooksID)
+                       .map(BooksIdVerificationRequest :: booksID)
+                       .map(idVerificationUseCase :: verify)
+                       .map(ResponseEntity :: ok)
+                       .orElse(ResponseEntity.badRequest()
+                                             .body(false));
     }
 }

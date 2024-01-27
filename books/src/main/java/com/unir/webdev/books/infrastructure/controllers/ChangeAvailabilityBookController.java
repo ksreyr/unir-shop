@@ -11,8 +11,6 @@ import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChangeAvailabilityBookController {
     ChangeAvailabilityUseCase changeAvailabilityUseCase;
 
+    @NotNull
+    private static ResponseEntity<String> buildResponse(Either<String, Boolean> booleans) {
+        return booleans.isLeft() ? ResponseEntity.unprocessableEntity()
+                                                 .body(booleans.getLeft()) :
+               ResponseEntity.ok()
+                                                                                           .body("Availability Changed");
+    }
+
     @PatchMapping ("/availability")
     public ResponseEntity<?> handle(@RequestBody ChangeAvailabilityRequest changeAvailabilityRequest) {
         return Option.of(changeAvailabilityRequest)
@@ -32,15 +38,9 @@ public class ChangeAvailabilityBookController {
                      .map(List :: ofAll)
                      .map(changeAvailabilityUseCase :: changeAvailability)
                      .map(ChangeAvailabilityBookController :: buildResponse)
-                     .getOrElse(ResponseEntity.badRequest().body("Invalid Data Given"));
+                     .getOrElse(ResponseEntity.badRequest()
+                                              .body("Invalid Data Given"));
 
-    }
-
-    @NotNull
-    private static ResponseEntity<String> buildResponse(Either<String, Boolean> booleans) {
-        return booleans.isLeft() ? ResponseEntity.unprocessableEntity()
-                                                 .body(booleans.getLeft()) : ResponseEntity.ok()
-                                                                                           .body("Availability Changed");
     }
 
 

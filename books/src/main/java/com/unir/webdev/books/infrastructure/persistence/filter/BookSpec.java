@@ -22,9 +22,11 @@ public class BookSpec {
                                                                      "%" + name + "%"));
             }
             if (author != null) {
-                predicateAuthorStream = Stream.of(criteriaBuilder.like(root.get(
-                        "author")
-                                                                             .get("author"), "%" + author + "%"));
+                predicateAuthorStream = Stream.of(criteriaBuilder.like(root.get("author")
+                                                                           .get("author"
+                                                                               ),
+                                                                       "%" + author +
+                                                                       "%"));
             }
 
             return criteriaBuilder.and(Stream.concat(predicateAuthorStream,
