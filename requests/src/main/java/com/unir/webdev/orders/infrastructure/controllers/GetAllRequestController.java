@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GetAllRequestController {
     GetAllRequestsUseCase getAllRequestsUseCase;
 
-    @GetMapping ("all")
+    @GetMapping ("")
     public ResponseEntity<?> getAllRequest() {
         return ResponseEntity.ok(getAllRequestsUseCase.getAllRequest());
     }
