@@ -39,14 +39,11 @@ Content-Type: application/json
 }
 
 ###Gateway:Update:Books
-POST http://localhost:9191/api/v1/books
+POST http://localhost:9191/api/v1/books/7227649e-297d-4081-8227-80ad4391006c
 Content-Type: application/json
 
 {
   "httpMethod": "PUT",
-  "queryParams": {
-    "id": ["7227649e-297d-4081-8227-80ad4391006c"]
-  },
   "body": {
     "name": "Orgullo y Prejuicio",
     "isbn":  "978-0141439518",

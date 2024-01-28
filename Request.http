@@ -42,7 +42,7 @@ Content-Type: application/json
 ### TODO: Delete:Book
 
 ###Update:Book
-PUT http://localhost:8082/api/v1/books?id=6f22c294-5611-4806-8c53-a6e3531802ab
+PUT http://localhost:8082/api/v1/books/6f22c294-5611-4806-8c53-a6e3531802ab
 Content-Type: application/json
 
 {
