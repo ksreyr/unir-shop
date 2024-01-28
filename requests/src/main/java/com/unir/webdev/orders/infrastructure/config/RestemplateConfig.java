@@ -1,7 +1,5 @@
 package com.unir.webdev.orders.infrastructure.config;
 
-import io.opentelemetry.exporter.otlp.http.trace.OtlpHttpSpanExporter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,13 +12,6 @@ public class RestemplateConfig {
     @LoadBalanced
     public RestTemplate restTemplate() {
         return new RestTemplate(new HttpComponentsClientHttpRequestFactory());
-    }
-
-    @Bean
-    OtlpHttpSpanExporter otlpHttpSpanExporter(@Value ("${tracing.url}") String url) {
-        return OtlpHttpSpanExporter.builder()
-                                   .setEndpoint(url)
-                                   .build();
     }
 
 }

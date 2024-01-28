@@ -35,3 +35,8 @@ spring:
               - "*"
             allowed-methods:
               - POST
+
+management:
+  tracing:
+    sampling:
+      probability: 1

@@ -62,7 +62,7 @@ Content-Type: application/json
 
 {
   "booksID": [
-    "5a436c89-a86f-42ca-9389-39d8842a20e2"
+    "f7dbfb59-fa39-4399-a6e8-da2b11d8fb75"
   ]
 }
 
@@ -85,7 +85,7 @@ GET http://localhost:8081/api/v1/requests
 Content-Type: application/json
 
 ### Delete:Request
-DELETE http://localhost:8081/api/v1/requests?requestUUID=ba62032c-bf30-4933-ad34-6857f68dbdae
+DELETE http://localhost:8081/api/v1/requests?requestUUID=a787f9e1-101d-4341-af2e-56346c5f8f40
 Content-Type: application/json
 
 ###HealthCheck Request
@@ -98,7 +98,7 @@ Content-Type: application/json
 
 {
   "booksID": [
-    "1b4405d6-7c42-4ec6-b232-9637442ac47c"
+    "7a23f6a9-7579-46ee-975e-58f725953ee9"
   ]
 }
 
