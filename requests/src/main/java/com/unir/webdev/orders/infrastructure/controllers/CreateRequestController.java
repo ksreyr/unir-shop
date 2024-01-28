@@ -6,6 +6,7 @@ import com.unir.webdev.orders.infrastructure.controllers.dto.RequestCreation;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @RequestMapping ("/api/v1/requests")
 @RequiredArgsConstructor
 @FieldDefaults (makeFinal = true, level = AccessLevel.PRIVATE)
+@Slf4j
 public class CreateRequestController {
     RegisterNewRequestUseCase registerNewRequestUseCase;
 
@@ -30,6 +32,7 @@ public class CreateRequestController {
 
     @PostMapping ("")
     public ResponseEntity<?> handel(@RequestBody RequestCreation requestCreation) {
+        log.info("receive request create Request");
         return Optional.ofNullable(requestCreation)
                        .map(RequestCreation :: booksID)
                        .filter(booksID -> ! booksID.isEmpty())
