@@ -25,8 +25,8 @@ public class RequestBooksController {
     @NotNull
     private static ResponseEntity<String> buildResponse(Either<String, Boolean> booleans) {
         return booleans.isLeft() ? ResponseEntity.badRequest()
-                                                 .body(booleans.getLeft()) :
-               ResponseEntity.ok("Request successfully");
+                                                 .body(booleans.getLeft())
+                                 : ResponseEntity.ok("Request successfully");
     }
 
     @PostMapping ("/request")

@@ -19,7 +19,9 @@ POST http://localhost:8081/api/v1/requests/create
 Content-Type: application/json
 
 {
-  "booksID": ["1b4405d6-7c42-4ec6-b232-9637442ac47c"]
+  "booksID": [
+    "1b4405d6-7c42-4ec6-b232-9637442ac47c"
+  ]
 }
 
 ### Verificar: ShopCar
@@ -27,7 +29,9 @@ POST http://localhost:8082/api/v1/books/verify
 Content-Type: application/json
 
 {
-  "booksID": ["c675c27e-1150-4360-b5ef-630797f6c08a"]
+  "booksID": [
+    "c675c27e-1150-4360-b5ef-630797f6c08a"
+  ]
 }
 
 
@@ -67,7 +71,9 @@ POST http://localhost:8082/api/v1/books/request
 Content-Type: application/json
 
 {
-  "booksID": ["5a436c89-a86f-42ca-9389-39d8842a20e2"]
+  "booksID": [
+    "5a436c89-a86f-42ca-9389-39d8842a20e2"
+  ]
 }
 
 ###All:Request
@@ -83,6 +89,8 @@ PATCH http://localhost:8082/api/v1/books/availability
 Content-Type: application/json
 
 {
-  "booksID": ["c675c27e-1150-4360-b5ef-630797f6c08a"]
+  "booksID": [
+    "c675c27e-1150-4360-b5ef-630797f6c08a"
+  ]
 }
 
