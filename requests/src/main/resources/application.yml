@@ -6,7 +6,7 @@ spring:
     name: requests
   datasource:
     password: admin
-    url: jdbc:postgresql://localhost:5432/requests
+    url: jdbc:postgresql://localhost:5433/requests
     username: root
   jpa:
     generate-ddl: true
