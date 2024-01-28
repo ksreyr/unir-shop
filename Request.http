@@ -93,25 +93,3 @@ Content-Type: application/json
     "c675c27e-1150-4360-b5ef-630797f6c08a"
   ]
 }
-
-####GATEWAY
-
-###Gateway:GetAll:Books
-POST http://localhost:9191/api/v1/books
-Content-Type: application/json
-
-{
-  "httpMethod": "GET"
-}
-
-###GateWay:Filter:Books
-POST http://localhost:9191/api/v1/books
-Content-Type: application/json
-
-{
-  "httpMethod": "GET",
-  "queryParams": {
-    "name": ["Orgullo"],
-    "author": ["Austen"]
-  }
-}
