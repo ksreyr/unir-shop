@@ -36,22 +36,10 @@ logging:
 
 
 
-
-tracing:
-  url: http://localhost:4318/v1/traces
-
 management:
   tracing:
     sampling:
-      probability: 1.0
-
-logging:
-  pattern:
-    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
-
-
-
-
+      probability: 1
 
 eureka:
   client:
