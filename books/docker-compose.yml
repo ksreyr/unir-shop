@@ -11,22 +11,17 @@ services:
       - "8082:8082"
     networks:
       - eureka_unirEureka
+    depends_on:
+      - db
+      - pgadmin
 
-  web:
-    profiles: [ "deploy" ]
-    container_name: books
-    image: kevinsantiagorey/unir_books:v.0.2
-    ports:
-      - "8082:8082"
-    networks:
-      - eureka_unirEureka
 
   db:
-    profiles: [ "dev" ]
+    profiles: [ "db", "docker" ]
     container_name: db
     image: postgres
     environment:
-      POSTGRES_DB: noticity
+      POSTGRES_DB: books
       POSTGRES_USER: root
       POSTGRES_PASSWORD: admin
     restart: unless-stopped
@@ -38,7 +33,7 @@ services:
       - eureka_unirEureka
 
   pgadmin:
-    profiles: [ "dev" ]
+    profiles: [ "db", "docker" ]
     container_name: pgadmin
     image: dpage/pgadmin4
     environment:
