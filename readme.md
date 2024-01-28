@@ -23,17 +23,31 @@ El proyecto se compone de los siguientes microservicios:
 
 ## Configuración
 
-Se proporcionan dos archivos de configuración YAML para los microservicios de `requests` y `books`:
+Los microservicios `requests` y `books` son los dos microservicios del proyecto, ambos integrados y gestionados a través del Eureka Service Discovery. La configuración inicial ha sido actualizada para utilizar una base de datos Postgres.
 
 ### Requests Service (Puerto 8081)
 
-- Base de datos H2 en memoria.
+- Base de datos Postgres.
 - Registro en Eureka Service Discovery.
 
 ### Books Service (Puerto 8082)
 
-- Base de datos H2 en memoria.
+- Base de datos Postgres.
 - Registro en Eureka Service Discovery.
+
+### Instrucciones para Iniciar el Proyecto
+
+Para iniciar los servicios con la base de datos Postgres, sigue estos pasos:
+
+1. Navega a la carpeta del microservicio correspondiente utilizando el comando `cd`. Por ejemplo, para el servicio de libros:
+
+``` cd books ```
+
+2. Dentro de la carpeta del microservicio, ejecuta el siguiente comando para iniciar los servicios con Docker Compose:
+``` docker compose --profile db up -d ```
+
+
+Estos comandos aseguran que los microservicios se inicien correctamente y establezcan la conexión con la base de datos Postgres.
 
 ## Hitos Clave
 
