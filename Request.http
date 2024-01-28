@@ -72,7 +72,7 @@ Content-Type: application/json
 
 {
   "booksID": [
-    "5a436c89-a86f-42ca-9389-39d8842a20e2"
+    "45ecc767-4421-4d14-aff0-d368b1f7bda6"
   ]
 }
 
@@ -81,7 +81,7 @@ GET http://localhost:8081/api/v1/requests/all
 Content-Type: application/json
 
 ### Delete:Request
-DELETE http://localhost:8081/api/v1/requests?requestUUID=25403c33-ea3c-42c2-ad0b-84b418a9c290
+DELETE http://localhost:8081/api/v1/requests?requestUUID=922a0418-3069-464e-8dea-b246abcb6c8e
 Content-Type: application/json
 
 ### ChangeAvailability:Book
@@ -90,7 +90,7 @@ Content-Type: application/json
 
 {
   "booksID": [
-    "c675c27e-1150-4360-b5ef-630797f6c08a"
+    "159827da-ff22-4684-b3b1-28370909ccfd"
   ]
 }
 

@@ -6,12 +6,15 @@ import com.unir.webdev.books.infrastructure.controllers.DTO.request.GetBookByReq
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -20,12 +23,14 @@ import static lombok.AccessLevel.PRIVATE;
 @RequiredArgsConstructor
 @RequestMapping ("api/v1/books")
 @FieldDefaults (makeFinal = true, level = PRIVATE)
-public class GetOneBookFilteredByController {
+@Slf4j
+public class GetBooksController {
     GetBookByUseCase getBookByUseCase;
     GetAllBooksUseCase getAllBooksUseCase;
 
     @GetMapping ("")
     public ResponseEntity<?> getBooks(GetBookByRequest request) {
+        log.info("Incoming request at {} for request /path1", GetBooksController.class.getName());
         return Optional.ofNullable(request)
                        .filter(getBookByRequest1 -> GetBookByRequest.existAuthor(getBookByRequest1) || GetBookByRequest.existBookName(getBookByRequest1))
                        .map(getBookByRequest -> getBookByUseCase.getBookBy(request.name(), request.author()))
