@@ -28,7 +28,7 @@ public class CreateRequestController {
                                .body(stringObjectResult.getError());
     }
 
-    @PostMapping ("/create")
+    @PostMapping ("")
     public ResponseEntity<?> handel(@RequestBody RequestCreation requestCreation) {
         return Optional.ofNullable(requestCreation)
                        .map(RequestCreation :: booksID)

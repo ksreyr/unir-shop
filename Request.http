@@ -1,3 +1,7 @@
+########################
+######## MS Books
+########################
+
 ### Todos los libros
 GET http://localhost:8082/api/v1/books
 Content-Type: application/json
@@ -9,20 +13,6 @@ Content-Type: application/json
 ### Todos los libros
 GET http://localhost:8082/api/v1/books?name=Cien
 Content-Type: application/json
-
-###HealthCheck Request
-GET http://localhost:8081/api/v1/request
-Content-Type: application/json
-
-### Crear Peitcion de Libros
-POST http://localhost:8081/api/v1/requests/create
-Content-Type: application/json
-
-{
-  "booksID": [
-    "1b4405d6-7c42-4ec6-b232-9637442ac47c"
-  ]
-}
 
 ### Verificar: ShopCar
 POST http://localhost:8082/api/v1/books/verify
@@ -76,14 +66,6 @@ Content-Type: application/json
   ]
 }
 
-###All:Request
-GET http://localhost:8081/api/v1/requests/all
-Content-Type: application/json
-
-### Delete:Request
-DELETE http://localhost:8081/api/v1/requests?requestUUID=25403c33-ea3c-42c2-ad0b-84b418a9c290
-Content-Type: application/json
-
 ### ChangeAvailability:Book
 PATCH http://localhost:8082/api/v1/books/availability
 Content-Type: application/json
@@ -91,5 +73,31 @@ Content-Type: application/json
 {
   "booksID": [
     "c675c27e-1150-4360-b5ef-630797f6c08a"
+  ]
+}
+
+########################
+######## MS Request
+########################
+
+###All:Request
+GET http://localhost:8081/api/v1/requests
+Content-Type: application/json
+
+### Delete:Request
+DELETE http://localhost:8081/api/v1/requests/ba62032c-bf30-4933-ad34-6857f68dbdae
+Content-Type: application/json
+
+###HealthCheck Request
+GET http://localhost:8081/api/v1/request/check
+Content-Type: application/json
+
+### Crear Peitcion de Libros
+POST http://localhost:8081/api/v1/requests
+Content-Type: application/json
+
+{
+  "booksID": [
+    "1b4405d6-7c42-4ec6-b232-9637442ac47c"
   ]
 }
