@@ -74,7 +74,7 @@ Content-Type: application/json
 {
   "httpMethod": "POST",
   "body": {
-    "booksID": ["f6c0cc33-f8b4-4d1d-aeec-fd14d62621ad"]
+    "booksID": ["0b711c65-d72d-4004-a573-3ed29133f065"]
   }
 }
 
@@ -104,12 +104,12 @@ Content-Type: application/json
 {
   "httpMethod": "POST",
   "body": {
-    "booksID": ["651ac4b6-f67f-4f64-a73e-4a864959be4f"]
+    "booksID": ["2544c72a-f397-48bb-86c8-76e76c01f1c3"]
   }
 }
 
 ###Gateway:Create:Requests
-POST http://localhost:9191/api/v1/requests/d7fefb2e-86d2-4295-b0d7-2e68326d0339
+POST http://localhost:9191/api/v1/requests/dbeb495a-1273-4473-bc5e-dea03a686d09
 Content-Type: application/json
 
 {

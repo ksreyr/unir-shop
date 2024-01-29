@@ -31,18 +31,6 @@ logging:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 
 
-
-
-management:
-  tracing:
-    sampling:
-      probability: 1
-
-management:
-  tracing:
-    sampling:
-      probability: 1
-
 eureka:
   client:
     service-url:
