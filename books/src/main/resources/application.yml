@@ -41,6 +41,11 @@ management:
     sampling:
       probability: 1
 
+management:
+  tracing:
+    sampling:
+      probability: 1
+
 eureka:
   client:
     service-url:
