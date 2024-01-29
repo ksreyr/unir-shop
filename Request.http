@@ -42,7 +42,7 @@ Content-Type: application/json
 ### TODO: Delete:Book
 
 ###Update:Book
-PUT http://localhost:8082/api/v1/books?id=6f22c294-5611-4806-8c53-a6e3531802ab
+PUT http://localhost:8082/api/v1/books/6f22c294-5611-4806-8c53-a6e3531802ab
 Content-Type: application/json
 
 {
@@ -85,7 +85,7 @@ GET http://localhost:8081/api/v1/requests
 Content-Type: application/json
 
 ### Delete:Request
-DELETE http://localhost:8081/api/v1/requests?requestUUID=ba62032c-bf30-4933-ad34-6857f68dbdae
+DELETE http://localhost:8081/api/v1/requests/ba62032c-bf30-4933-ad34-6857f68dbdae
 Content-Type: application/json
 
 ###HealthCheck Request
@@ -100,31 +100,4 @@ Content-Type: application/json
   "booksID": [
     "1b4405d6-7c42-4ec6-b232-9637442ac47c"
   ]
-}
-
-
-
-
-########################
-######## MS Getway
-########################
-
-###Gateway:GetAll:Books
-POST http://localhost:9191/api/v1/books
-Content-Type: application/json
-
-{
-  "httpMethod": "GET"
-}
-
-###GateWay:Filter:Books
-POST http://localhost:9191/api/v1/books
-Content-Type: application/json
-
-{
-  "httpMethod": "GET",
-  "queryParams": {
-    "name": ["Orgullo"],
-    "author": ["Austen"]
-  }
 }

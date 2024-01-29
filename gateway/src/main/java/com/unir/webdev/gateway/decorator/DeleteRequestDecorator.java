@@ -1,10 +1,14 @@
 package com.unir.webdev.gateway.decorator;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unir.webdev.gateway.model.GatewayRequest;
 import lombok.NonNull;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.core.io.buffer.DataBufferFactory;
+import org.springframework.core.io.buffer.DefaultDataBufferFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequestDecorator;
@@ -34,7 +38,6 @@ public class DeleteRequestDecorator extends ServerHttpRequestDecorator {
     public URI getURI() {
         return UriComponentsBuilder
                 .fromUri((URI) gatewayRequest.getExchange().getAttributes().get(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR))
-                .queryParams(gatewayRequest.getQueryParams())
                 .build()
                 .toUri();
     }

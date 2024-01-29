@@ -11,11 +11,7 @@ import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -44,11 +40,11 @@ public class UpdateBookController {
                               : ResponseEntity.ok("Process done");
     }
 
-    @PutMapping ("")
-    public ResponseEntity<?> updateController(@RequestBody UpdateBookRequest updateBookRequest, @RequestParam UUID id) {
+    @PutMapping ("/{bookID}")
+    public ResponseEntity<?> updateController(@RequestBody UpdateBookRequest updateBookRequest, @PathVariable UUID bookID) {
         return Option.of(updateBookRequest)
                      .filter(updateBookRequest1 -> updateBookRequest.validData())
-                     .map(updateBookRequest1 -> requestToDomain(updateBookRequest, id))
+                     .map(updateBookRequest1 -> requestToDomain(updateBookRequest, bookID))
                      .map(updateBookUseCase :: updateBook)
                      .map(UpdateBookController :: buildResponse)
                      .getOrElse(() -> ResponseEntity.badRequest()
