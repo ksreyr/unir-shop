@@ -39,6 +39,9 @@ public class RequestTranslationFilter implements GlobalFilter {
                     GatewayRequest request = requestBodyExtractor.getRequest(exchange, dataBuffer);
                     ServerHttpRequest mutatedRequest = requestDecoratorFactory.getDecorator(request);
                     exchange.getAttributes().put(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR, mutatedRequest.getURI());
+                    if (request.getQueryParams() != null) {
+                        request.getQueryParams().clear();
+                    }
                     log.info("Proxying request: {} {}", mutatedRequest.getMethod(), mutatedRequest.getURI());
                     return chain.filter(exchange.mutate().request(mutatedRequest).build());
                 });
