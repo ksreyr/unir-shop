@@ -35,7 +35,7 @@ public class RequestBooksController {
                                  : ResponseEntity.ok("Request successfully");
     }
 
-    @PostMapping ("/request")
+    @PostMapping ("/requests")
     @Operation (summary = "Request Books", description = "Request one or more books by " +
                                                          "providing their IDs")
     @ApiResponses (value = {@ApiResponse (responseCode = "200", description = "Books " +

@@ -33,7 +33,7 @@ services:
       - eureka_unir_books
 
   pgadmin:
-    profiles: [ "db", "docker" ]
+    profiles: [ "db-view", "docker" ]
     container_name: pgadmin
     image: dpage/pgadmin4
     environment:

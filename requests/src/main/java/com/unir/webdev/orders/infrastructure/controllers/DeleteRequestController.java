@@ -12,6 +12,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,7 @@ public class DeleteRequestController {
             @ApiResponse(responseCode = "400", description = "Bad Request, the operation could not be completed",
                          content = @Content)
     })
+    @CrossOrigin("*")
     public ResponseEntity<?> deleteRequest(
             @Parameter (description = "UUID of the request to be deleted", required = true)
             @PathVariable UUID requestID

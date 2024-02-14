@@ -39,4 +39,5 @@ class GetAllBooksUseCaseTest {
                                                             .size(), "El " + "tama" +
                                                                      "ño de" + " la " + "lista de éxito " + "debería ser 1"));
     }
+
 }

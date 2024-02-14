@@ -57,12 +57,12 @@ Content-Type: application/json
 }
 
 ### Compra:Books
-POST http://localhost:8082/api/v1/books/request
+POST http://localhost:8082/api/v1/books/requests
 Content-Type: application/json
 
 {
   "booksID": [
-    "5a436c89-a86f-42ca-9389-39d8842a20e2"
+    "90b116fa-bfe1-40ad-a92a-b2edc07bcac0"
   ]
 }
 

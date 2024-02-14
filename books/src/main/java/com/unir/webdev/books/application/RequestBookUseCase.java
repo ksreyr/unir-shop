@@ -3,6 +3,7 @@ package com.unir.webdev.books.application;
 import com.unir.webdev.books.domain.events.BookEvents;
 import com.unir.webdev.books.domain.repository.BookRepository;
 import io.vavr.collection.List;
+import io.vavr.collection.Seq;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import lombok.AccessLevel;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+import static io.vavr.control.Either.*;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults (level = AccessLevel.PRIVATE, makeFinal = true)
@@ -20,12 +23,10 @@ public class RequestBookUseCase {
     BookRepository bookRepository;
 
     public Either<String, Boolean> requestBooks(List<UUID> books) {
-        var map = books.filter(bookRepository :: isValidBook)
-                       .filter(bookRepository :: areAvailable)
-                       .map(bookRepository :: changeToUnavailability)
-                       .map(uuids -> uuids.isRight() ? uuids.get() : null);
-        return map.isEmpty() ? Either.left("invalid Ids") : sendEvents(map);
-
+        return sequenceRight(books.filter(bookRepository :: isValidBook)
+                                  .filter(bookRepository :: areAvailable)
+                                  .map(bookRepository :: changeToUnavailability))
+                .flatMap(map->sendEvents(map.toList()));
     }
 
 

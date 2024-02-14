@@ -33,7 +33,7 @@ services:
       - unir_eureca_request
 
   pgadmin_request:
-    profiles: [ "db", "docker" ]
+    profiles: [ "db-view", "docker" ]
     container_name: pgadmin_request
     image: dpage/pgadmin4
     environment:

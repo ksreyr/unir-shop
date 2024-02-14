@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,7 @@ import static lombok.AccessLevel.PRIVATE;
 @RequiredArgsConstructor
 @RequestMapping ("api/v1/books")
 @FieldDefaults (makeFinal = true, level = PRIVATE)
+
 public class GetOneBookFilteredByController {
     GetBookByUseCase getBookByUseCase;
     GetAllBooksUseCase getAllBooksUseCase;
@@ -44,11 +46,8 @@ public class GetOneBookFilteredByController {
         return Optional.ofNullable(request)
                        .filter(getBookByRequest1 -> GetBookByRequest.existAuthor(getBookByRequest1) || GetBookByRequest.existBookName(getBookByRequest1))
                        .map(getBookByRequest -> getBookByUseCase.getBookBy(request.name(), request.author()))
-                       .map(books -> ResponseEntity.ok()
-                                                   .body(books))
-                       .orElse(ResponseEntity.ok()
-                                             .body(getAllBooksUseCase.getAllProducts()
-                                                                     .getSuccess()));
+                       .map(books -> ResponseEntity.ok().body(books))
+                       .orElse(ResponseEntity.ok().body(getAllBooksUseCase.getAllProducts().getSuccess()));
     }
 
 }

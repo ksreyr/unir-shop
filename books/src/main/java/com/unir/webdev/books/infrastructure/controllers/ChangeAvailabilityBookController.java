@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping ("/api/v1/books")
@@ -27,27 +29,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChangeAvailabilityBookController {
     ChangeAvailabilityUseCase changeAvailabilityUseCase;
 
-    @NotNull
-    private static ResponseEntity<String> buildResponse(Either<String, Boolean> booleans) {
-        return booleans.isLeft() ? ResponseEntity.unprocessableEntity()
-                                                 .body(booleans.getLeft())
-                                 : ResponseEntity.ok()
-                                                 .body("Availability Changed");
-    }
-
     @PatchMapping ("/availability")
     @Operation (summary = "Change Book Availability", description = "Change the " +
                                                                     "availability " +
-                                                                    "status for a list "
-                                                                    + "of books")
+                                                                    "status for a list of books")
     @ApiResponses (value = {@ApiResponse (responseCode = "200", description =
             "Availability Changed Successfully", content = {@Content (mediaType = "application/json", schema = @Schema (implementation = String.class))}), @ApiResponse (responseCode = "422", description = "Unprocessable Entity, validation failed", content = @Content), @ApiResponse (responseCode = "400", description = "Bad Request, invalid data provided", content = @Content)})
     public ResponseEntity<?> handle(
             @io.swagger.v3.oas.annotations.parameters.RequestBody (description =
                                                                            "ChangeAvailabilityRequest object", required = true, content = @Content (schema = @Schema (implementation = ChangeAvailabilityRequest.class)))
             @RequestBody
-            ChangeAvailabilityRequest changeAvailabilityRequest
-                                   ) {
+            ChangeAvailabilityRequest changeAvailabilityRequest) {
         return Option.of(changeAvailabilityRequest)
                      .filter(ChangeAvailabilityRequest :: existBooks)
                      .map(ChangeAvailabilityRequest :: booksID)
@@ -56,8 +48,14 @@ public class ChangeAvailabilityBookController {
                      .map(ChangeAvailabilityBookController :: buildResponse)
                      .getOrElse(ResponseEntity.badRequest()
                                               .body("Invalid Data Given"));
-
     }
 
+    @NotNull
+    private static ResponseEntity<String> buildResponse(Either<String, UUID> booleans) {
+        return booleans.isLeft() ? ResponseEntity.unprocessableEntity()
+                                                 .body(booleans.getLeft())
+                                 : ResponseEntity.ok()
+                                                 .body("Availability Changed");
+    }
 
 }

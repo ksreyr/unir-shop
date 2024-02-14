@@ -16,7 +16,6 @@ public class IdVerificationUseCase {
     BookRepository bookRepository;
 
     public Boolean verify(List<UUID> booksID) {
-        return booksID.stream()
-                      .allMatch(bookRepository :: isValidBook);
+        return booksID.stream().allMatch(bookRepository :: isValidBook);
     }
 }
