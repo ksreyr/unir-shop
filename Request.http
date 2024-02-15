@@ -7,7 +7,7 @@ GET http://localhost:8082/api/v1/books
 Content-Type: application/json
 
 ### Todos los libros
-GET http://localhost:8082/api/v1/books?name=Orgullo
+GET http://localhost:8082/api/v1/books?name=Cien&author=Gabriel
 Content-Type: application/json
 
 ### Todos los libros

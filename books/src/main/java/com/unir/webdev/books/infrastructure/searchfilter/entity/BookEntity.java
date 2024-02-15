@@ -8,6 +8,8 @@ import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Rel
 import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Rate;
 import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Language;
 import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Available;
+import lombok.Builder;
+import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,9 +20,11 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import java.util.UUID;
 
 @AllArgsConstructor
-@Document (indexName = "employee")
+@Document (indexName = "books")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
+@Accessors(fluent = true)
+@Builder
 public class BookEntity {
     @Id UUID bookId;
 

@@ -1,21 +1,22 @@
-package com.unir.webdev.books.infrastructure.persistence.mappers;
+package com.unir.webdev.books.infrastructure.searchfilter.mappers;
 
 import com.unir.webdev.books.domain.Book;
-import com.unir.webdev.books.infrastructure.persistence.entity.BookEntity;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Author;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Available;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.BookName;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Image;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Isbn;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Language;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Rate;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.ReleaseYear;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.BookEntity;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Author;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Available;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.BookName;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Image;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Isbn;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Language;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Rate;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.ReleaseYear;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 public class BookMapper {
     @Contract ("_ -> new")
-    public static @NotNull Book fromDbToDomain(@NotNull BookEntity bookEntity) {
+    public static @NotNull Book fromElaToDomain(@NotNull BookEntity bookEntity) {
         return new Book(bookEntity.bookId(),
                         new com.unir.webdev.books.domain.valueObjects.BookName(bookEntity.bookName()
                                                                                          .bookName()),

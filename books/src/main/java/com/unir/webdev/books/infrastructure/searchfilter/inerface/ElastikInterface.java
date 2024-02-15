@@ -1,4 +1,4 @@
-package com.unir.webdev.books.infrastructure.searchfilter.entity.inerface;
+package com.unir.webdev.books.infrastructure.searchfilter.inerface;
 
 import com.unir.webdev.books.infrastructure.searchfilter.entity.BookEntity;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;

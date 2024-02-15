@@ -1,15 +1,15 @@
 package com.unir.webdev.books.infrastructure.utils;
 
-import com.unir.webdev.books.infrastructure.persistence.BookRepositoryJPA;
-import com.unir.webdev.books.infrastructure.persistence.entity.BookEntity;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Author;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Available;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.BookName;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Image;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Isbn;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Language;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Rate;
-import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.ReleaseYear;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.BookEntity;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Author;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Available;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.BookName;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Image;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Isbn;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Language;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Rate;
+import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.ReleaseYear;
+import com.unir.webdev.books.infrastructure.searchfilter.inerface.ElastikInterface;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -23,11 +23,11 @@ import java.util.UUID;
 @FieldDefaults (level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 @Service
-public class StartData {
-    BookRepositoryJPA bookRepositoryJPA;
+public class StartDataElastic {
+    ElastikInterface elastikInterface;
     @EventListener (ApplicationReadyEvent.class)
     public void persistDataAfterStart() {
-        bookRepositoryJPA.saveAll(List.of(
+        elastikInterface.saveAll(List.of(
                 new BookEntity(
                         UUID.randomUUID(),
                         new BookName("Cien años de soledad"),

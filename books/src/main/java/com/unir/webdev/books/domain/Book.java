@@ -11,6 +11,7 @@ import com.unir.webdev.books.domain.valueObjects.Rate;
 import com.unir.webdev.books.domain.valueObjects.ReleaseYear;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;

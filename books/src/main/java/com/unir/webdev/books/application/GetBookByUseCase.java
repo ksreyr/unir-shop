@@ -2,6 +2,7 @@ package com.unir.webdev.books.application;
 
 import com.unir.webdev.books.domain.Book;
 import com.unir.webdev.books.domain.repository.BookRepository;
+import com.unir.webdev.books.infrastructure.repositories.BookRepositoryElaImp;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -13,9 +14,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults (makeFinal = true, level = AccessLevel.PRIVATE)
 public class GetBookByUseCase {
-    BookRepository bookRepository;
+    BookRepositoryElaImp bookRepository;
 
     public List<Book> getBookBy(String name, String author) {
-        return bookRepository.getBooksBy(name, author);
+        return bookRepository.findBooks(name, author);
     }
 }
