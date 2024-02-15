@@ -22,6 +22,7 @@ import java.util.UUID;
 @Repository
 @RequiredArgsConstructor
 @FieldDefaults (makeFinal = true, level = AccessLevel.PRIVATE)
+
 public class BookRepositoryImp implements BookRepository {
     BookRepositoryJPA bookRepositoryJPA;
     BookSpec bookSpec;

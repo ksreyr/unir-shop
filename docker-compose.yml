@@ -1,21 +1,67 @@
 version: '3.8'
 services:
-  web:
-    profiles: [ "deploy" ]
-    container_name: web
-    build:
-      context: ./
+  db:
+    profiles: [ "db", "docker" ]
+    container_name: db
+    image: postgres
+    environment:
+      POSTGRES_DB: books
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin
+    restart: unless-stopped
     ports:
-      - "80:3000"
-
+      - 5432:5432
+    volumes:
+      - ./postgres_data/books:/var/lib/postgresql/data
     networks:
-      - unir_eureca
-    depends_on:
-      - db
-      - pgadmin
+      - eureka_unir_books
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1
+    profiles: [ "db", "docker" ]
+    environment: ['CLI_JAVA_OPTS=-Xms1g -Xmx1g','bootstrap.memory_lock=true','discovery.type=single-node','xpack.security.enabled=false', 'xpack.security.enrollment.enabled=false']
+    ports:
+      - 9200:9200
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    networks:
+      - unir_elastic
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.7.1
+    container_name: kibana
+    profiles: [ "db", "docker" ]
+    environment:
+      XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY: d1a66dfd-c4d3-4a0a-8290-2abcb83ab3aa
+    ports:
+      - 5601:5601
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+        reservations:
+          cpus: '1.0'
+    networks:
+      - unir_elastic
+
+  zipkin:
+    profiles: [ "db", "docker" ]
+    container_name: zipkin
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
+    networks:
+      - unir_tracing
+    restart: unless-stopped
 
   db_request:
-    profiles: [ "deploy","dev" ]
+    profiles: [ "db", "docker" ]
     container_name: db_request
     image: postgres
     environment:
@@ -24,29 +70,18 @@ services:
       POSTGRES_PASSWORD: admin
     restart: unless-stopped
     ports:
-      - 5432:5432
+      - 5433:5432
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - ./postgres_data/request:/var/lib/postgresql/data
     networks:
-      - unir_eureca
-
-  pgadmin_request:
-    profiles: [ "deploy","dev" ]
-    container_name: pgadmin
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-    ports:
-      - "5050:80"
-    networks:
-      - unir_eureca
-    restart: unless-stopped
-    depends_on:
-      - db_request
-
+      - unir_eureca_request
 
 networks:
-  unir_eureca:
+  eureka_unir_books:
+    driver: bridge
+  unir_eureca_request:
+    driver: bridge
+  unir_elastic:
+    driver: bridge
+  unir_tracing:
     driver: bridge

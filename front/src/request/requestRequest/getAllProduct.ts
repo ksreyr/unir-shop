@@ -1,17 +1,5 @@
 import {performFetch} from "../FetchRequest.ts";
-export type ORDERS_TYPE = {
-    id: string;
-    dateInfo: {
-        creationDate: string;
-    };
-    booksID: string[];
-}[];
-export type ORDER_TYPE = {
-    id: string;
-    dateInfo: {
-        creationDate: string;
-    };
-    booksID: string[];
-};
+import {ORDERS_TYPE} from "../../models/models.tsx";
+
 
 export const fetchAllOrder:()=>Promise<ORDERS_TYPE> = ()=> performFetch("/requests", "8081").get()
