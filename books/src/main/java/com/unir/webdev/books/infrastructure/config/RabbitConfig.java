@@ -1,6 +1,6 @@
 package com.unir.webdev.books.infrastructure.config;
 
-import org.springframework.amqp.core.AmqpTemplate;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
@@ -14,21 +14,27 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@Slf4j
 public class RabbitConfig {
-    @Value ("${rabbitmq.queue}")
-    String queueName;
 
-    @Value("${rabbitmq.exchange}")
+
+    @Value ("${rabbitmq.out.requests.exchange}")
     String exchange;
 
-    @Value("${rabbitmq.routingkey}")
+    @Value("${rabbitmq.out.requests.routingkey}")
     private String routingkey;
 
     @Bean
-    Queue queue() {
+    Queue queue2(@Value ("${rabbitmq.in.books.queue}")String queueName) {
+        log.info("--:::::::::::::: CREATION QUEUE ONE:::::::::::::::::::::-");
         return new Queue(queueName, false);
     }
 
+    @Bean
+    Queue queue(@Value ("${rabbitmq.out.requests.queue}")String queueName) {
+        log.info("--:::::::::::::: CREATION QUEUE TWO:::::::::::::::::::::-");
+        return new Queue(queueName, false);
+    }
 
     @Bean
     DirectExchange exchange() {

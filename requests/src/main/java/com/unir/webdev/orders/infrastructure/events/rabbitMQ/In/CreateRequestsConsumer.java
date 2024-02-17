@@ -18,15 +18,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @FieldDefaults (level = AccessLevel.PRIVATE)
 @Slf4j
-public class MessageListener {
+public class CreateRequestsConsumer {
     final RegisterNewRequestUseCase registerNewRequestUseCase;
 
-
-    @Value ("${rabbitmq.queue}") String queueName;
-
-    @Value ("${rabbitmq.exchange}") String exchange;
-
-    @RabbitListener (queues = "${rabbitmq.queue}")
+    @RabbitListener (queues = "${rabbitmq.in.requests.queue}")
     public void handleMessage(@NotNull List<UUID> message) {
         Option.of(message).map(registerNewRequestUseCase :: createNewOder);
         log.info("gettin event notification");

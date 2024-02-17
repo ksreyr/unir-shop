@@ -26,18 +26,26 @@ spring:
         cluster-nodes: localhost:9200
         cluster-name: docker-cluster
 
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 rabbitmq:
-  queue: sms_notification
-  exchange: sms_exchange
-  routingkey: sms_routingkey
-
+  in:
+    books:
+      queue: q.books.availabilities
+      exchange: sms_books
+  out:
+    requests:
+      queue: q.requests.creation
+      exchange: sms_requests
+      routingkey: sms_requests_routingkey
 
 management:
   tracing:
     sampling:
       probability: 1.0
     propagation:
-      type: w3c,b3_multi
+      type: w3c, b3_multi, b3
     exporter:
       zipkin:
         enabled: true

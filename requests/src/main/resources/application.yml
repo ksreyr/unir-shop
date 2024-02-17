@@ -23,16 +23,27 @@ spring:
     password: guest
 
 rabbitmq:
-  queue: sms_notification
-  exchange: sms_exchange
+  in:
+    requests:
+      queue: q.requests.creation
+      exchange: sms_requests
+  out:
+    books:
+      queue: q.books.availabilities
+      exchange: sms_books
+      routingkey: sms_books_routingkey
 
+
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 
 management:
   tracing:
     sampling:
       probability: 1.0
     propagation:
-      type: w3c,b3_multi
+      type: w3c, b3_multi, b3
     exporter:
       zipkin:
         enabled: true
