@@ -1,0 +1,14 @@
+image: aergus/latex
+
+stages:
+  - build
+
+compile_pdf:
+  stage: build
+  script:
+    - latexmk -pdf -interaction=nonstopmode -file-line-error doc/main.tex
+    - ls -R
+  artifacts:
+    paths:
+      - main.pdf
+    expire_in: 5 month
