@@ -19,7 +19,7 @@ import java.util.UUID;
 @Component
 @FieldDefaults (level = AccessLevel.PRIVATE, makeFinal = true)
 public class ChangeAvailabilityEvent implements ResquestEvents {
-    RestTemplate restTemplate;
+    //RestTemplate restTemplate;
 
     public void sendEventChangeAvailability(List<UUID> booksList) {
         String url = "http://books:8082/api/v1/books/availability";
@@ -27,7 +27,7 @@ public class ChangeAvailabilityEvent implements ResquestEvents {
         headers.setContentType(MediaType.APPLICATION_JSON);
         var requestEntity =
                 new HttpEntity<>(new RequestChangeBookAvailability(booksList), headers);
-        var s = restTemplate.exchange(url, HttpMethod.PATCH, requestEntity, String.class);
-        System.out.println(s.getBody());
+        //var s = restTemplate.exchange(url, HttpMethod.PATCH, requestEntity, String.class);
+        //System.out.println(s.getBody());
     }
 }

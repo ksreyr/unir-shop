@@ -6,4 +6,4 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import java.util.UUID;
 
 
-public interface ElastikInterface extends ElasticsearchRepository<BookEntity, UUID> {}
+public interface ElasticInterface extends ElasticsearchRepository<BookEntity, UUID> {}

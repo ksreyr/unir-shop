@@ -13,7 +13,7 @@ import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Rele
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-public class BookMapper {
+public class BookMapperPersistence {
     @Contract ("_ -> new")
     public static @NotNull Book fromDbToDomain(@NotNull BookEntity bookEntity) {
         return new Book(bookEntity.bookId(),

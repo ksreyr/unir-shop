@@ -6,13 +6,15 @@ import com.unir.webdev.books.infrastructure.persistence.BookRepositoryJPA;
 import com.unir.webdev.books.infrastructure.persistence.entity.BookEntity;
 import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Available;
 import com.unir.webdev.books.infrastructure.persistence.filter.BookSpec;
-import com.unir.webdev.books.infrastructure.persistence.mappers.BookMapper;
+import com.unir.webdev.books.infrastructure.persistence.mappers.BookMapperPersistence;
+import com.unir.webdev.books.infrastructure.searchfilter.inerface.ElasticInterface;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,16 +24,17 @@ import java.util.UUID;
 @Repository
 @RequiredArgsConstructor
 @FieldDefaults (makeFinal = true, level = AccessLevel.PRIVATE)
-
+@Qualifier ("JPAImp")
 public class BookRepositoryJPAImp implements BookRepository {
     BookRepositoryJPA bookRepositoryJPA;
+    ElasticInterface bookRepositoryElaImp;
     BookSpec bookSpec;
 
     @Override
     public List<Book> getAllBooks() {
         return bookRepositoryJPA.findAll()
                                 .stream()
-                                .map(BookMapper :: fromDbToDomain)
+                                .map(BookMapperPersistence :: fromDbToDomain)
                                 .toList();
     }
 
@@ -39,7 +42,7 @@ public class BookRepositoryJPAImp implements BookRepository {
     public List<Book> getBooksBy(String name, String author) {
         return bookRepositoryJPA.findAll(bookSpec.filterColumns(name, author))
                                 .stream()
-                                .map(BookMapper :: fromDbToDomain)
+                                .map(BookMapperPersistence :: fromDbToDomain)
                                 .toList();
     }
 
@@ -50,6 +53,8 @@ public class BookRepositoryJPAImp implements BookRepository {
 
     @Override
     public Either<String, UUID> changeToUnavailability(UUID book) {
+        bookRepositoryElaImp.findById(book).map(com.unir.webdev.books.infrastructure.searchfilter.entity.BookEntity :: makeUnavailable)
+                            .map(bookRepositoryElaImp :: save);
         return Try.of(() -> Option.of(book)
                                   .map(bookRepositoryJPA :: findById)
                                   .flatMap(Option::ofOptional)
@@ -62,6 +67,8 @@ public class BookRepositoryJPAImp implements BookRepository {
 
     @Override
     public UUID changeAvailabilityOf(UUID book) {
+        bookRepositoryElaImp.findById(book).map(com.unir.webdev.books.infrastructure.searchfilter.entity.BookEntity :: makeAvailable)
+                .map(bookRepositoryElaImp :: save);
         return Optional.of(book)
                        .flatMap(bookRepositoryJPA :: findById)
                        .map(BookEntity :: makeAvailable)
@@ -74,16 +81,16 @@ public class BookRepositoryJPAImp implements BookRepository {
     public Either<String, Book> updateBook(Book book) {
         return Try.of(() -> bookRepositoryJPA.findById(book.bookId())
                                              .get())
-                  .map(bookEntity -> bookEntity.updateEntity(BookMapper.fromDomainToDb(book)))
+                  .map(bookEntity -> bookEntity.updateEntity(BookMapperPersistence.fromDomainToDb(book)))
                   .map(bookRepositoryJPA :: save)
-                  .map(BookMapper :: fromDbToDomain)
+                  .map(BookMapperPersistence :: fromDbToDomain)
                   .toEither("Not update possible at DB");
     }
 
     @Override
     public Either<String, Book> createBook(Book book) {
-        return Try.of(() -> bookRepositoryJPA.save(BookMapper.fromDomainToDb(book)))
-                  .map(BookMapper :: fromDbToDomain)
+        return Try.of(() -> bookRepositoryJPA.save(BookMapperPersistence.fromDomainToDb(book)))
+                  .map(BookMapperPersistence :: fromDbToDomain)
                   .toEither("Error to save at DB");
     }
 
@@ -95,6 +102,7 @@ public class BookRepositoryJPAImp implements BookRepository {
 
     @Override
     public boolean areAvailable(UUID bookID) {
+
         return Optional.ofNullable(bookID)
                        .map(bookRepositoryJPA :: findById)
                        .flatMap(bookEntity -> bookEntity.map(BookEntity :: available))

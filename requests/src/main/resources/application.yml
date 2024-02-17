@@ -16,15 +16,26 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-    show-sql: true
+  rabbitmq:
+    host: localhost
+    port: '5672'
+    username: guest
+    password: guest
 
-tracing:
-  url: http://localhost:4318/v1/traces
+rabbitmq:
+  queue: sms_notification
+  exchange: sms_exchange
+
 
 management:
   tracing:
     sampling:
       probability: 1.0
+    propagation:
+      type: w3c,b3_multi
+    exporter:
+      zipkin:
+        enabled: true
 
 eureka:
   client:

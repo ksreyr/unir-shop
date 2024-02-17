@@ -30,7 +30,6 @@ import java.util.UUID;
 @Entity
 public class BookEntity {
     @Id
-    @GeneratedValue (strategy = GenerationType.UUID)
     UUID bookId;
 
     @Embedded

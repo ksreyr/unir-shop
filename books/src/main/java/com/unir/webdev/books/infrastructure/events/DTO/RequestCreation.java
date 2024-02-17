@@ -1,4 +1,4 @@
-package com.unir.webdev.books.infrastructure.events;
+package com.unir.webdev.books.infrastructure.events.DTO;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,23 +1,27 @@
 package com.unir.webdev.books.application;
 
 import com.unir.webdev.books.domain.Book;
-import com.unir.webdev.books.domain.repository.BookRepository;
+import com.unir.webdev.books.domain.repository.SearchInterface;
 import com.unir.webdev.books.domain.response.Result;
+import io.vavr.control.Either;
 import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 @FieldDefaults (level = AccessLevel.PRIVATE, makeFinal = true)
 public class GetAllBooksUseCase {
-    BookRepository bookRepository;
+    SearchInterface searchInterface;
+    public GetAllBooksUseCase(@Qualifier ("ElaImp") SearchInterface searchInterface)
+    {
+        this.searchInterface = searchInterface;
+    }
 
-    public @NotNull Result<List<Book>, Object> getAllProducts() {
-        return Result.success(bookRepository.getAllBooks());
+    public @NotNull Either<String, List<Book>> getAllProducts() {
+        return Either.right(searchInterface.getAllBooks());
     }
 }

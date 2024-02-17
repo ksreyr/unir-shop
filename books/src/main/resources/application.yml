@@ -6,7 +6,7 @@ spring:
     name: books
   datasource:
     password: admin
-    url: jdbc:postgresql://localhost:5432/books?sslmode=require
+    url: jdbc:postgresql://localhost:5432/books
     username: root
   jpa:
     generate-ddl: true
@@ -16,8 +16,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-    show-sql: true
-
+  rabbitmq:
+    host: localhost
+    port: '5672'
   data:
     elasticsearch:
       repositories:
@@ -25,13 +26,21 @@ spring:
         cluster-nodes: localhost:9200
         cluster-name: docker-cluster
 
-tracing:
-  url: http://localhost:4318/v1/traces
+rabbitmq:
+  queue: sms_notification
+  exchange: sms_exchange
+  routingkey: sms_routingkey
+
 
 management:
   tracing:
     sampling:
       probability: 1.0
+    propagation:
+      type: w3c,b3_multi
+    exporter:
+      zipkin:
+        enabled: true
 
 eureka:
   client:

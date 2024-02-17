@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.vavr.control.Option;
+import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.experimental.FieldDefaults;
@@ -43,11 +45,11 @@ public class GetOneBookFilteredByController {
             @Parameter (description = "GetBookByRequest object to filter books by name " +
                                       "or author") GetBookByRequest request
                                      ) {
-        return Optional.ofNullable(request)
-                       .filter(getBookByRequest1 -> GetBookByRequest.existAuthor(getBookByRequest1) || GetBookByRequest.existBookName(getBookByRequest1))
-                       .map(getBookByRequest -> getBookByUseCase.getBookBy(request.name(), request.author()))
-                       .map(books -> ResponseEntity.ok().body(books))
-                       .orElse(ResponseEntity.ok().body(getAllBooksUseCase.getAllProducts().getSuccess()));
+        return Option.of(request)
+                  .filter(getBookByRequest1 -> GetBookByRequest.existAuthor(getBookByRequest1) || GetBookByRequest.existBookName(getBookByRequest1))
+                  .map(getBookByRequest -> getBookByUseCase.getBookBy(request.name(), request.author()))
+                  .map(books -> ResponseEntity.ok().body(books))
+                     .getOrElse(ResponseEntity.ok().body(getAllBooksUseCase.getAllProducts().get()));
     }
 
 }

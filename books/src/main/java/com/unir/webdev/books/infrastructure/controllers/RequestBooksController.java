@@ -13,6 +13,7 @@ import io.vavr.control.Option;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping ("api/v1/books")
 @AllArgsConstructor
 @FieldDefaults (level = AccessLevel.PRIVATE)
+@Slf4j
 public class RequestBooksController {
     RequestBookUseCase requestBookUseCase;
 
@@ -46,6 +48,7 @@ public class RequestBooksController {
             @RequestBody
             BooksIdVerificationRequest booksIdVerificationRequest
                                           ) {
+        log.info("gettin controller event create request");
         return Option.of(booksIdVerificationRequest)
                      .filter(BooksIdVerificationRequest :: isNotNullBooksID)
                      .map(BooksIdVerificationRequest :: booksID)

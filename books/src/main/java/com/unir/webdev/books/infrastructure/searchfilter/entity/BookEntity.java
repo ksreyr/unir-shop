@@ -26,6 +26,7 @@ import java.util.UUID;
 @Accessors(fluent = true)
 @Builder
 public class BookEntity {
+
     @Id UUID bookId;
 
     BookName bookName;

@@ -12,7 +12,6 @@ import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.Rat
 import com.unir.webdev.books.infrastructure.searchfilter.entity.valueObjects.ReleaseYear;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.stereotype.Component;
 
 public class BookMapper {
     @Contract ("_ -> new")
@@ -39,7 +38,7 @@ public class BookMapper {
 
 
     @Contract ("_ -> new")
-    public static @NotNull BookEntity fromDomainToDb(@NotNull Book book) {
+    public static @NotNull BookEntity fromDomainToEla(@NotNull Book book) {
         return new BookEntity(book.bookId(),
                               new BookName(book.bookName()
                                                .bookName()),
