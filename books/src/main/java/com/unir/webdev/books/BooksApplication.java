@@ -17,23 +17,15 @@ import reactor.core.publisher.Hooks;
 
 import java.util.function.Consumer;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {
+        "com.unir.webdev.books",
+        "com.unir.webdev.rabbitmq"
+
+})
 @Slf4j
 public class BooksApplication {
     public static void main(String[] args) {
         SpringApplication.run(BooksApplication.class, args);
-    }
-    @Configuration
-    public class MyConfiguration implements WebMvcConfigurer {
-        @Bean
-        ContainerCustomizer<SimpleMessageListenerContainer> containerCustomizer() {
-            return container -> container.setObservationEnabled(true);
-        }
-
-        @Override
-        public void addCorsMappings(CorsRegistry registry) {
-            registry.addMapping("/**");
-        }
     }
 
 }

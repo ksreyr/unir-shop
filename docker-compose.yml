@@ -1,11 +1,14 @@
 version: '3.8'
 services:
   rabbitmq:
+    profiles: [ "db", "docker" ]
     container_name: rabbitmq
     image: rabbitmq:3-management
     ports:
       - 15672:15672
       - 5672:5672
+    networks:
+      - eureka_unir_books
 
   db:
     profiles: [ "db", "docker" ]

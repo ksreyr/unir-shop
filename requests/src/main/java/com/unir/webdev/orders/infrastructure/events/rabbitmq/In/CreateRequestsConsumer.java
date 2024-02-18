@@ -1,4 +1,4 @@
-package com.unir.webdev.orders.infrastructure.events.rabbitMQ.In;
+package com.unir.webdev.orders.infrastructure.events.rabbitmq.In;
 
 import com.unir.webdev.orders.application.RegisterNewRequestUseCase;
 import io.vavr.control.Option;
@@ -8,7 +8,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

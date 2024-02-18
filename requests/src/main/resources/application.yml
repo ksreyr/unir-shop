@@ -43,7 +43,7 @@ management:
     sampling:
       probability: 1.0
     propagation:
-      type: w3c, b3_multi, b3
+      type: w3c
     exporter:
       zipkin:
         enabled: true

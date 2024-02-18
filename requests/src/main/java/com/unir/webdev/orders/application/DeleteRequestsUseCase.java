@@ -2,7 +2,7 @@ package com.unir.webdev.orders.application;
 
 import com.unir.webdev.orders.domain.repository.RequestRepository;
 import com.unir.webdev.orders.domain.response.Result;
-import com.unir.webdev.orders.infrastructure.events.rabbitMQ.out.ChangeAvailabilityEvent;
+import com.unir.webdev.orders.infrastructure.events.rabbitmq.out.ChangeAvailabilityEvent;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
