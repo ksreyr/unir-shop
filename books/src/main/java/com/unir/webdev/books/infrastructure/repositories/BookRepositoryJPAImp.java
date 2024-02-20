@@ -8,6 +8,7 @@ import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Avai
 import com.unir.webdev.books.infrastructure.persistence.filter.BookSpec;
 import com.unir.webdev.books.infrastructure.persistence.mappers.BookMapperPersistence;
 import com.unir.webdev.books.infrastructure.searchfilter.inerface.ElasticInterface;
+import com.unir.webdev.books.infrastructure.searchfilter.mappers.BookMapper;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
@@ -53,7 +54,8 @@ public class BookRepositoryJPAImp implements BookRepository {
 
     @Override
     public Either<String, UUID> changeToUnavailability(UUID book) {
-        bookRepositoryElaImp.findById(book).map(com.unir.webdev.books.infrastructure.searchfilter.entity.BookEntity :: makeUnavailable)
+        bookRepositoryElaImp.findById(book)
+                            .map(com.unir.webdev.books.infrastructure.searchfilter.entity.BookEntity :: makeUnavailable)
                             .map(bookRepositoryElaImp :: save);
         return Try.of(() -> Option.of(book)
                                   .map(bookRepositoryJPA :: findById)
@@ -67,8 +69,9 @@ public class BookRepositoryJPAImp implements BookRepository {
 
     @Override
     public UUID changeAvailabilityOf(UUID book) {
-        bookRepositoryElaImp.findById(book).map(com.unir.webdev.books.infrastructure.searchfilter.entity.BookEntity :: makeAvailable)
-                .map(bookRepositoryElaImp :: save);
+        bookRepositoryElaImp.findById(book)
+                            .map(com.unir.webdev.books.infrastructure.searchfilter.entity.BookEntity :: makeAvailable)
+                            .map(bookRepositoryElaImp :: save);
         return Optional.of(book)
                        .flatMap(bookRepositoryJPA :: findById)
                        .map(BookEntity :: makeAvailable)
@@ -89,6 +92,7 @@ public class BookRepositoryJPAImp implements BookRepository {
 
     @Override
     public Either<String, Book> createBook(Book book) {
+        bookRepositoryElaImp.save(BookMapper.fromDomainToEla(book));
         return Try.of(() -> bookRepositoryJPA.save(BookMapperPersistence.fromDomainToDb(book)))
                   .map(BookMapperPersistence :: fromDbToDomain)
                   .toEither("Error to save at DB");
@@ -96,6 +100,8 @@ public class BookRepositoryJPAImp implements BookRepository {
 
     @Override
     public void deleteBook(UUID book) {
+        bookRepositoryElaImp.findById(book)
+                            .ifPresent(bookRepositoryElaImp :: delete);
         bookRepositoryJPA.deleteById(book);
     }
 

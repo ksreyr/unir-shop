@@ -3,6 +3,7 @@ package com.unir.webdev.orders.infrastructure.controllers;
 import com.unir.webdev.orders.application.RegisterNewRequestUseCase;
 import com.unir.webdev.orders.domain.response.Result;
 import com.unir.webdev.orders.infrastructure.controllers.dto.RequestCreation;
+import io.micrometer.observation.annotation.Observed;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

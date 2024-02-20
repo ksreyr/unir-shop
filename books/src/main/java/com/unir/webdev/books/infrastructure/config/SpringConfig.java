@@ -1,5 +1,7 @@
 package com.unir.webdev.books.infrastructure.config;
 
+import io.micrometer.observation.ObservationRegistry;
+import io.micrometer.observation.aop.ObservedAspect;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -13,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @Slf4j
 public class SpringConfig implements WebMvcConfigurer {
     @Value ("${rabbitmq.out.requests.exchange}")
@@ -29,11 +31,8 @@ public class SpringConfig implements WebMvcConfigurer {
         return BindingBuilder.bind(queue).to(exchange).with(routingkey);
     }
     @Bean
-    ContainerCustomizer<SimpleMessageListenerContainer> containerCustomizer() {
-        return container -> container.setObservationEnabled(true);
+    ObservedAspect observedAspect(ObservationRegistry observationRegistry){
+        return new ObservedAspect(observationRegistry);
     }
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
-    }
+
 }

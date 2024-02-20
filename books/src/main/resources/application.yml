@@ -29,6 +29,7 @@ spring:
 logging:
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+
 rabbitmq:
   in:
     books:
@@ -44,11 +45,19 @@ management:
   tracing:
     sampling:
       probability: 1.0
-    propagation:
-      type: w3c
     exporter:
       zipkin:
         enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
 
 eureka:
   client:
