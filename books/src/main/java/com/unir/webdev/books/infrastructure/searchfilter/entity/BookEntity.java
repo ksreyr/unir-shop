@@ -30,7 +30,7 @@ import java.util.UUID;
 public class BookEntity {
 
     @Id UUID bookId;
-    @Field(type = FieldType.Nested, includeInParent = true, name = "bookName")
+    @Field(type = FieldType.Nested, includeInParent = true,  name = "bookName")
     BookName bookName;
     @Field(type = FieldType.Nested, includeInParent = true, name = "isbn")
     Isbn isbn;

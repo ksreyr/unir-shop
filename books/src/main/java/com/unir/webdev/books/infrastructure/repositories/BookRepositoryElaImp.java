@@ -22,7 +22,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Repository
 @RequiredArgsConstructor
@@ -43,19 +45,23 @@ public class BookRepositoryElaImp implements SearchInterface {
                                  String idioma,
                                  Boolean aggregate
                                 ) {
-        var multiMatchQuery = MultiMatchQuery.of(m -> m.fields(search, searchSearchFields)
-                                                                   .type(TextQueryType.PhrasePrefix)
-                                                                   .query(search));
 
-        var query =
-                Query.of(q -> q.bool(b -> b.must(builder -> builder.multiMatch(multiMatchQuery))));
+        var builder = NativeQuery.builder();
+        List<Query> multiMatchQueries = Stream.of(search, anoPublicacion, idioma)
+                                              .map(s -> MultiMatchQuery.of(m -> m
+                                                      .fields(s, searchSearchFields)
+                                                      .type(TextQueryType.PhrasePrefix)
+                                                      .query(s)))
+                                              .map(mmq -> Query.of(q -> q.bool(b -> b.must(must -> must.multiMatch(mmq)))))
+                                              .toList();
 
-        var nativeQuery = NativeQuery.builder()
-                                             .withQuery(query)
-                                             .withPageable(PageRequest.of(
-                                                     0,
-                                                     10))
-                                             .build();
+        Query combinedQuery = Query.of(q -> q.bool(b -> b.must(new ArrayList<>(multiMatchQueries))));
+
+        var nativeQuery = builder.withQuery(combinedQuery)
+                                 .withPageable(PageRequest.of(
+                                         0,
+                                         10))
+                                 .build();
 
         SearchHits<BookEntity> searchHits = elasticsearchOperations.search(
                 nativeQuery,
