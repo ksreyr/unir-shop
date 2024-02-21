@@ -12,6 +12,8 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
+./postgres_data
+./postgres_data/*
 # AWS User-specific
 .idea/**/aws.xml
 
