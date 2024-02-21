@@ -16,6 +16,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.UUID;
 
@@ -28,21 +30,21 @@ import java.util.UUID;
 public class BookEntity {
 
     @Id UUID bookId;
-
+    @Field(type = FieldType.Nested, includeInParent = true, name = "bookName")
     BookName bookName;
-
+    @Field(type = FieldType.Nested, includeInParent = true, name = "isbn")
     Isbn isbn;
-
+    @Field(type = FieldType.Nested, includeInParent = true, name = "image")
     Image image;
-
+    @Field(type = FieldType.Nested, includeInParent = true, name = "author")
     Author author;
-
+    @Field(type = FieldType.Nested, includeInParent = true, name = "releaseYear")
     ReleaseYear releaseYear;
-
+    @Field(type = FieldType.Nested, includeInParent = true, name = "rate")
     Rate rate;
-
+    @Field(type = FieldType.Nested, includeInParent = true, name = "language")
     Language language;
-
+    @Field(type = FieldType.Nested, includeInParent = true, name = "available")
     Available available;
 
     public BookEntity makeUnavailable() {

@@ -23,8 +23,6 @@ spring:
     password: guest
 
 
-
-
 rabbitmq:
   in:
     requests:
@@ -58,8 +56,6 @@ management:
         http:
           server:
             requests: true
-
-
 
 
 eureka:

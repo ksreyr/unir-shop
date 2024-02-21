@@ -6,7 +6,7 @@ spring:
     name: books
   datasource:
     password: admin
-    url: jdbc:postgresql://localhost:5432/books
+    url: ${DB_URL}
     username: root
   jpa:
     generate-ddl: true
@@ -16,10 +16,17 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-    show-sql: true
-
+  rabbitmq:
+    host: rabbitmq
+    port: '5672'
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+        cluster-nodes: ${ELASTIC_URL}
+        cluster-name: docker-cluster
 eureka:
   client:
     service-url:
-      defaultZone: http://${SPRING_EUREKA_URL}:8761/eureka/
+      defaultZone: ${SPRING_EUREKA_URL}
 

@@ -1,5 +1,5 @@
 import {performFetch} from "../FetchRequest.ts";
 
-export default function fetchAllProducts() {
-    return () => performFetch("/books", "8082").get()
+export default function fetchAllProducts(request?:string) {
+    return () => performFetch("/books"+request, "8082").get()
 }

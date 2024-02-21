@@ -1,18 +1,66 @@
 version: '3.8'
 services:
-  rabbitmq:
-    profiles: [ "db", "docker" ]
-    container_name: rabbitmq
-    image: rabbitmq:3-management
-    ports:
-      - 15672:15672
-      - 5672:5672
-    networks:
-      - eureka_unir_books
 
-  db:
-    profiles: [ "db", "docker" ]
-    container_name: db
+  eurekaDocker:
+    profiles: [ "docker", "eureka", "all"]
+    container_name: eureka
+    image: eureka:0.0.1-SNAPSHOT
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "8761:8761"
+    networks:
+      - unir_eureka
+
+  requestDocker:
+    profiles: [ "db", "docker", "request", "all"]
+    container_name: request
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_EUREKA_URL=http://eureka:8761/eureka/
+    image: request:0.0.1-SNAPSHOT
+    ports:
+      - "8081:8081"
+    networks:
+      - unir_request
+    depends_on:
+      - db_requests
+
+  db_requests:
+    profiles: [ "db", "docker", "all", "local"]
+    container_name: db_request
+    image: postgres
+    environment:
+      POSTGRES_DB: requests
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin
+    restart: unless-stopped
+    ports:
+      - 5433:5432
+    volumes:
+      - ./postgres_data/request:/var/lib/postgresql/data
+    networks:
+      - unir_request
+
+  booksDocker:
+    profiles: [ "docker", "books", "all"]
+    container_name: books
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_EUREKA_URL=http://172.18.0.2:8761/eureka/
+      - ELASTIC_URL=172.19.0.2:9200
+      - DB_URL=jdbc:postgresql://172.22.0.2:5432/books
+    image: books:0.0.1-SNAPSHOT
+    ports:
+      - "8082:8082"
+    networks:
+      - unir_books
+    depends_on:
+      - db_books
+
+  db_books:
+    profiles: [ "db_books", "docker", "books", "db",  "local" ]
+    container_name: db_book
     image: postgres
     environment:
       POSTGRES_DB: books
@@ -24,12 +72,26 @@ services:
     volumes:
       - ./postgres_data/books:/var/lib/postgresql/data
     networks:
-      - eureka_unir_books
+      - unir_books
+
+
+
+
+
+  rabbitmq:
+    profiles: [ "rabbit",  "local"]
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    ports:
+      - 15672:15672
+      - 5672:5672
+    networks:
+      - unir_rabbitmq
 
   elasticsearch:
     container_name: elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1
-    profiles: [ "db", "elasticSearch" ]
+    profiles: [ "elastic",  "local" ]
     environment: ['CLI_JAVA_OPTS=-Xms511m -Xmx511m','bootstrap.memory_lock=true','discovery.type=single-node','xpack.security.enabled=false', 'xpack.security.enrollment.enabled=false']
     ports:
       - 9200:9200
@@ -46,7 +108,7 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:8.7.1
     container_name: kibana
-    profiles: [ "db", "elasticSearch" ]
+    profiles: [ "elastic",  "local" ]
     environment:
       XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY: d1a66dfd-c4d3-4a0a-8290-2abcb83ab3aa
     ports:
@@ -61,7 +123,7 @@ services:
       - unir_elastic
 
   zipkin:
-    profiles: [ "db", "docker" ]
+    profiles: [ "db", "docker",  "local" ]
     container_name: zipkin
     image: openzipkin/zipkin
     ports:
@@ -70,26 +132,16 @@ services:
       - unir_tracing
     restart: unless-stopped
 
-  db_request:
-    profiles: [ "db", "docker" ]
-    container_name: db_request
-    image: postgres
-    environment:
-      POSTGRES_DB: requests
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: admin
-    restart: unless-stopped
-    ports:
-      - 5433:5432
-    volumes:
-      - ./postgres_data/request:/var/lib/postgresql/data
-    networks:
-      - unir_eureca_request
+
 
 networks:
-  eureka_unir_books:
+  unir_rabbitmq:
     driver: bridge
-  unir_eureca_request:
+  unir_eureka:
+    driver: bridge
+  unir_books:
+    driver: bridge
+  unir_request:
     driver: bridge
   unir_elastic:
     driver: bridge

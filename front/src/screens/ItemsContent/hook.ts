@@ -9,7 +9,7 @@ type FILTER_TYPE = (products: BOOK_TYPE[]) => BOOK_TYPE[];
 type Dispatcher = (dis: (type: ("ADD" | "DELETE")) => (dispatch: Dispatch<ACTION_TYPE_SHOPCAR>) => void) => void;
 
 export const useItemsContent = () => {
-    const fetchProduct = fetchAllProducts()
+    const fetchProduct = fetchAllProducts("?author=gabriel")
     const [products, setProducts] = useState<BOOK_TYPE[]>([])
     const fetchData = async () => validateData(fetchProduct, setProducts)
     const {changeState} = useContext(ShopCarContext)
