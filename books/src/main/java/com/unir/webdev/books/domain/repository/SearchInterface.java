@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface SearchInterface {
     List<Book> getAllBooks();
+    List<Book> getBooksBy(String search, String anoPublicacion, String idioma, Boolean aggregate);
 
     List<Book> getBooksBy(String name, String author);
 

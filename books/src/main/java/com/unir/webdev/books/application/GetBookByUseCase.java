@@ -22,6 +22,6 @@ public class GetBookByUseCase {
     }
 
     public List<Book> getBookBy(String name, String author) {
-        return searchInterface.getBooksBy(name, author);
+        return searchInterface.getBooksBy(author, "", "", false );
     }
 }

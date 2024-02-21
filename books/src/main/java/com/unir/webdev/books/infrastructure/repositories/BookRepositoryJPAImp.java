@@ -40,6 +40,15 @@ public class BookRepositoryJPAImp implements BookRepository {
     }
 
     @Override
+    public List<Book> getBooksBy(String search,
+                                 String anoPublicacion,
+                                 String idioma,
+                                 Boolean aggregate
+                                ) {
+        return null;
+    }
+
+    @Override
     public List<Book> getBooksBy(String name, String author) {
         return bookRepositoryJPA.findAll(bookSpec.filterColumns(name, author))
                                 .stream()

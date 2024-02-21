@@ -1,5 +1,9 @@
 package com.unir.webdev.books.infrastructure.repositories;
 
+import co.elastic.clients.elasticsearch._types.query_dsl.MultiMatchQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.QueryBuilders;
+import co.elastic.clients.elasticsearch._types.query_dsl.TextQueryType;
 import com.unir.webdev.books.domain.Book;
 import com.unir.webdev.books.domain.repository.SearchInterface;
 import com.unir.webdev.books.infrastructure.searchfilter.entity.BookEntity;
@@ -20,36 +24,70 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import co.elastic.clients.elasticsearch._types.query_dsl.QueryBuilders;
-
 @Repository
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@Qualifier("ElaImp")
+@FieldDefaults (level = AccessLevel.PRIVATE, makeFinal = true)
+@Qualifier ("ElaImp")
 public class BookRepositoryElaImp implements SearchInterface {
-
+    private final String[] searchSearchFields = {"bookName.bookName", "bookName" +
+                                                                      ".bookName" +
+                                                                      "._2gram",
+            "bookName.bookName._3gram", "author.author", "author.author._2gram",
+            "author.author._3gram", "Sinopsis", "ISBN"};
     ElasticsearchOperations elasticsearchOperations;
     ElasticInterface elasticInterface;
 
     @Override
-    public List<Book> getBooksBy(String name, String author) {
-        Query query = QueryBuilders.bool(b -> b
-                .must(m -> m.match(mt -> mt
-                        .field("bookName.bookName")
-                        .query(name)))
-                .must(m -> m.match(mt -> mt
-                        .field("author.author")
-                        .query(author))));
+    public List<Book> getBooksBy(String search,
+                                 String anoPublicacion,
+                                 String idioma,
+                                 Boolean aggregate
+                                ) {
+        var multiMatchQuery = MultiMatchQuery.of(m -> m.fields(search, searchSearchFields)
+                                                                   .type(TextQueryType.PhrasePrefix)
+                                                                   .query(search));
+
+        var query =
+                Query.of(q -> q.bool(b -> b.must(builder -> builder.multiMatch(multiMatchQuery))));
+
+        var nativeQuery = NativeQuery.builder()
+                                             .withQuery(query)
+                                             .withPageable(PageRequest.of(
+                                                     0,
+                                                     10))
+                                             .build();
+
+        SearchHits<BookEntity> searchHits = elasticsearchOperations.search(
+                nativeQuery,
+                BookEntity.class);
+
+        return searchHits.getSearchHits()
+                         .stream()
+                         .map(hit -> BookMapper.fromElaToDomain(hit.getContent()))
+                         .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Book> getBooksBy(String name,
+                                 String author
+                                ) {
+        Query query = QueryBuilders.bool(b -> b.must(m -> m.match(mt -> mt.field(
+                "author.author")
+                                                                          .query(author))));
 
         NativeQuery nativeQuery = NativeQuery.builder()
                                              .withQuery(query)
-                                             .withPageable(PageRequest.of(0, 10))
+                                             .withPageable(PageRequest.of(
+                                                     0,
+                                                     10))
                                              .build();
 
-        SearchHits<BookEntity> searchHits = elasticsearchOperations.search(nativeQuery, BookEntity.class);
+        SearchHits<BookEntity> searchHits = elasticsearchOperations.search(
+                nativeQuery,
+                BookEntity.class);
 
-        return searchHits.getSearchHits().stream()
+        return searchHits.getSearchHits()
+                         .stream()
                          .map(hit -> BookMapper.fromElaToDomain(hit.getContent()))
                          .collect(Collectors.toList());
     }
@@ -58,10 +96,12 @@ public class BookRepositoryElaImp implements SearchInterface {
     public List<Book> getAllBooks() {
         Iterable<BookEntity> all = elasticInterface.findAll();
         List<BookEntity> books = new ArrayList<>();
-        for (BookEntity book: all){
+        for (BookEntity book : all) {
             books.add(book);
         }
-        return books.stream().map(BookMapper::fromElaToDomain).toList();
+        return books.stream()
+                    .map(BookMapper :: fromElaToDomain)
+                    .toList();
     }
 
     @Override
