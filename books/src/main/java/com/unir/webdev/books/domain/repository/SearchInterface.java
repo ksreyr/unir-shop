@@ -1,15 +1,17 @@
 package com.unir.webdev.books.domain.repository;
 
 import com.unir.webdev.books.domain.Book;
+import com.unir.webdev.books.infrastructure.repositories.DTO.BooksResponse;
 import io.vavr.control.Either;
 
 import java.util.List;
 
 public interface SearchInterface {
+    BooksResponse buildResponse(String search, String anoPublicacion, Boolean aggregate);
     List<Book> getAllBooks();
-    List<Book> getBooksBy(String search, String anoPublicacion, String idioma, Boolean aggregate);
+    List<Book> getBookBy(String search, String anoPublicacion, Boolean aggregate);
 
-    List<Book> getBooksBy(String name, String author);
+    List<Book> getBookBy(String name, String author);
 
     Either<String, Book> updateBook(Book book);
 }

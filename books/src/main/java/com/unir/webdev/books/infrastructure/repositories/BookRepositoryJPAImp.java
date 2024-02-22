@@ -7,6 +7,7 @@ import com.unir.webdev.books.infrastructure.persistence.entity.BookEntity;
 import com.unir.webdev.books.infrastructure.persistence.entity.valueObjects.Available;
 import com.unir.webdev.books.infrastructure.persistence.filter.BookSpec;
 import com.unir.webdev.books.infrastructure.persistence.mappers.BookMapperPersistence;
+import com.unir.webdev.books.infrastructure.repositories.DTO.BooksResponse;
 import com.unir.webdev.books.infrastructure.searchfilter.inerface.ElasticInterface;
 import com.unir.webdev.books.infrastructure.searchfilter.mappers.BookMapper;
 import io.vavr.control.Either;
@@ -32,6 +33,15 @@ public class BookRepositoryJPAImp implements BookRepository {
     BookSpec bookSpec;
 
     @Override
+    public BooksResponse buildResponse(String search,
+                                       String anoPublicacion,
+                                       Boolean aggregate
+                                      )
+    {
+        return null;
+    }
+
+    @Override
     public List<Book> getAllBooks() {
         return bookRepositoryJPA.findAll()
                                 .stream()
@@ -40,16 +50,16 @@ public class BookRepositoryJPAImp implements BookRepository {
     }
 
     @Override
-    public List<Book> getBooksBy(String search,
-                                 String anoPublicacion,
-                                 String idioma,
-                                 Boolean aggregate
-                                ) {
+    public List<Book> getBookBy(String search,
+                                String anoPublicacion,
+
+                                Boolean aggregate
+                               ) {
         return null;
     }
 
     @Override
-    public List<Book> getBooksBy(String name, String author) {
+    public List<Book> getBookBy(String name, String author) {
         return bookRepositoryJPA.findAll(bookSpec.filterColumns(name, author))
                                 .stream()
                                 .map(BookMapperPersistence :: fromDbToDomain)

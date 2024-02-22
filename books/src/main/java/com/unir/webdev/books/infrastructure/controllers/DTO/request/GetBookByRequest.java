@@ -3,12 +3,10 @@ package com.unir.webdev.books.infrastructure.controllers.DTO.request;
 import lombok.With;
 
 @With
-public record GetBookByRequest(String name, String author) {
-    public static boolean existAuthor(GetBookByRequest getBookByRequest) {
-        return getBookByRequest.author() != null;
-    }
+public record GetBookByRequest(String search,
+                               String releaseYear,
+                               String idioma,
+                               Boolean aggregate) {
 
-    public static boolean existBookName(GetBookByRequest getBookByRequest) {
-        return getBookByRequest.name() != null;
-    }
+
 }

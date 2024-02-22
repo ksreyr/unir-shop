@@ -4,6 +4,7 @@ import com.unir.webdev.books.application.GetAllBooksUseCase;
 import com.unir.webdev.books.application.GetBookByUseCase;
 import com.unir.webdev.books.domain.Book;
 import com.unir.webdev.books.infrastructure.controllers.DTO.request.GetBookByRequest;
+import com.unir.webdev.books.infrastructure.repositories.DTO.BooksResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,17 +12,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.vavr.control.Option;
-import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -36,20 +33,31 @@ public class GetOneBookFilteredByController {
     GetAllBooksUseCase getAllBooksUseCase;
 
     @GetMapping ("")
-    @Operation (summary = "Get Book by Filter", description = "Get a book by name or " +
-                                                              "author, or get all books" +
-                                                              " if no filter is provided")
-    @ApiResponses (value = {@ApiResponse (responseCode = "200", description = "Book(s) " +
-                                                                              "retrieved successfully", content = {@Content (mediaType = "application/json", schema = @Schema (implementation = Book.class))}), @ApiResponse (responseCode = "404", description = "No book found with the provided filters", content = @Content)})
+    @Operation (summary = "Get Book by Filter", description =
+            "Get a book by name or " + "author, or get all books" + " if no filter is " + "provided")
+    @ApiResponses (value = {
+            @ApiResponse (responseCode = "200", description =
+                    "Book(s) " + "retrieved " + "successfully", content = {
+                    @Content (mediaType = "application/json", schema =
+                    @Schema (implementation = Book.class))}),
+            @ApiResponse (responseCode = "404", description =
+                    "No book found with the " + "provided filters", content = @Content)})
     public ResponseEntity<?> getBooks(
-            @Parameter (description = "GetBookByRequest object to filter books by name " +
-                                      "or author") GetBookByRequest request
-                                     ) {
+            @Parameter (description = "GetBookByRequest object to filter books by name "
+                                      + "or author") GetBookByRequest request
+                                     )
+    {
         return Option.of(request)
-                  .filter(getBookByRequest1 -> GetBookByRequest.existAuthor(getBookByRequest1) || GetBookByRequest.existBookName(getBookByRequest1))
-                  .map(getBookByRequest -> getBookByUseCase.getBookBy(request.name(), request.author()))
-                  .map(books -> ResponseEntity.ok().body(books))
-                     .getOrElse(ResponseEntity.ok().body(getAllBooksUseCase.getAllProducts().get()));
+                     .map(getBookByRequest -> getBookByUseCase.getBookBy(
+                             request.search(),
+                             request.releaseYear(),
+                             request.idioma(),
+                             request.aggregate()))
+                     .map(books -> ResponseEntity.ok()
+                                                 .body(books))
+                     .getOrElse(ResponseEntity.ok()
+                                              .body(new BooksResponse(getAllBooksUseCase.getAllProducts()
+                                                                                        .get(),
+                                                                      null)));
     }
-
 }

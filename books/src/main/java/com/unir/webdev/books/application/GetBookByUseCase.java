@@ -2,9 +2,8 @@ package com.unir.webdev.books.application;
 
 import com.unir.webdev.books.domain.Book;
 import com.unir.webdev.books.domain.repository.SearchInterface;
-import com.unir.webdev.books.infrastructure.repositories.BookRepositoryElaImp;
+import com.unir.webdev.books.infrastructure.repositories.DTO.BooksResponse;
 import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,7 @@ public class GetBookByUseCase {
         this.searchInterface = searchInterface;
     }
 
-    public List<Book> getBookBy(String name, String author) {
-        return searchInterface.getBooksBy(author, "", "", false );
+    public BooksResponse getBookBy(String searchCriteria, String anoPu, String idioma, Boolean v) {
+        return searchInterface.buildResponse(searchCriteria, anoPu, v);
     }
 }
